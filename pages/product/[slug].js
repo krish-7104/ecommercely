@@ -23,7 +23,7 @@ const Post = ({ addToCart, product }) => {
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img
               alt="product image"
-              class="lg:w-1/2 w-full lg:h-auto object-cover object-top rounded"
+              class="lg:w-1/2 w-full object-contain object-top rounded"
               src={product.img}
             />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">

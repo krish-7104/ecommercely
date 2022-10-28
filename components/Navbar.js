@@ -2,7 +2,11 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiShoppingCart } from "react-icons/hi";
-import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiFillPlusCircle,
+  AiFillMinusCircle,
+} from "react-icons/ai";
 import { RiAccountCircleFill } from "react-icons/ri";
 const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const ref = useRef();
@@ -69,7 +73,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
         >
           <AiOutlineClose />
         </span>
-        <ol className="list-decimal">
+        <ol>
           {Object.keys(cart).length === 0 && (
             <div className="text-center font-normal">No Items In The Cart</div>
           )}
@@ -77,10 +81,12 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             return (
               <li key={k}>
                 <div className="item flex">
-                  <div className="w-3/4 font-semibold">{cart[k].name}</div>
-                  <div className="w-1/4 flex items-center justify-center mb-2 bg-indigo-300 ">
-                    <AiOutlineMinus
-                      className="cursor-pointer"
+                  <div className="w-3/4 font-normal text-sm">
+                    {cart[k].name}
+                  </div>
+                  <div className="w-1/4 flex items-center justify-center mb-2 h-auto ">
+                    <AiFillMinusCircle
+                      className="cursor-pointer text-lg"
                       onClick={() =>
                         removeFromCart(
                           k,
@@ -93,8 +99,8 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                       }
                     />
                     <span className="mx-2 font-semibold">{cart[k].qty}</span>
-                    <AiOutlinePlus
-                      className="cursor-pointer"
+                    <AiFillPlusCircle
+                      className="cursor-pointer text-lg"
                       onClick={() =>
                         addToCart(
                           k,
