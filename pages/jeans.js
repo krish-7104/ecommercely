@@ -4,7 +4,7 @@ import React from "react";
 import Product from "../models/Product";
 import mongoose from "mongoose";
 import { motion } from "framer-motion";
-const Hoddies = ({ products }) => {
+const Jeans = ({ products }) => {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-10 mx-auto">
@@ -28,15 +28,16 @@ const Hoddies = ({ products }) => {
                   <a className="block relative rounded overflow-hidden">
                     <img
                       alt="ecommerce"
-                      className="block m-auto h-60 object-contain"
+                      className="block m-auto h-60
+                    object-contain"
                       src={products[item].img}
                     />
                   </a>
                   <div className="mt-4">
                     <h3 className="text-indigo-700 text-xs tracking-widest title-font mb-1 font-bold">
-                      T-SHIRTS
+                      JEANS
                     </h3>
-                    <h2 className="text-gray-900 title-font text-lg font-medium">
+                    <h2 className="text-gray-900 title-font font-medium text-lg">
                       {products[item].title}
                     </h2>
                     <p className="mt-1">₹{products[item].price}</p>
@@ -76,10 +77,10 @@ export async function getServerSideProps() {
   if (!mongoose.connections[0].readyState) {
     mongoose.connect(process.env.MONGO_URI);
   }
-  let products = await Product.find({ category: "Hoddie" });
+  let products = await Product.find({ category: "Jeans" });
   return {
     props: { products: JSON.parse(JSON.stringify(products)) },
   };
 }
 
-export default Hoddies;
+export default Jeans;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Product from "../models/Product";
 import mongoose from "mongoose";
-
+import { motion } from "framer-motion";
 const Tshirts = ({ products }) => {
   return (
     <section className="text-gray-600 body-font">
@@ -15,11 +15,21 @@ const Tshirts = ({ products }) => {
                 href={`/product/${products[item].slug}`}
                 key={products[item]._id}
               >
-                <div className="lg:w-1/5 md:w-1/2 p-4 w-full m-5 shadow-lg cursor-pointer rounded-lg">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                  }}
+                  className="lg:w-1/5 md:w-1/2 p-4 w-full m-5 shadow-lg cursor-pointer rounded-lg hover:shadow-2xl"
+                >
                   <a className="block relative rounded overflow-hidden">
                     <img
                       alt="ecommerce"
-                      className="block m-auto h-60 object-contain"
+                      className="block m-auto h-60
+                    object-contain"
                       src={products[item].img}
                     />
                   </a>
@@ -27,12 +37,13 @@ const Tshirts = ({ products }) => {
                     <h3 className="text-indigo-700 text-xs tracking-widest title-font mb-1 font-bold">
                       T-SHIRTS
                     </h3>
-                    <h2 className="text-gray-900 title-font text-lg font-medium">
+                    <h2 className="text-gray-900 title-font font-medium text-lg">
                       {products[item].title}
                     </h2>
                     <p className="mt-1">₹{products[item].price}</p>
                     <div className="mt-2">
-                      {products[item].size.includes("XS") && (
+                      {products[item].size}
+                      {/* {products[item].size.includes("XS") && (
                         <span className="mr-2">XS</span>
                       )}
                       {products[item].size.includes("S") && (
@@ -49,10 +60,10 @@ const Tshirts = ({ products }) => {
                       )}
                       {products[item].size.includes("XXL") && (
                         <span className="mr-2">XXL</span>
-                      )}
+                      )} */}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </Link>
             );
           })}
@@ -67,31 +78,8 @@ export async function getServerSideProps() {
     mongoose.connect(process.env.MONGO_URI);
   }
   let products = await Product.find({ category: "T Shirt" });
-  let tshirts = {};
-  for (let item of products) {
-    if (item.title in tshirts) {
-      if (
-        !tshirts[item.title].color.includes(item.color) &&
-        item.availableQty > 0
-      ) {
-        tshirts[item.title].color.push(item.color);
-        if (
-          !tshirts[item.title].size.includes(item.size) &&
-          item.availableQty > 0
-        ) {
-          tshirts[item.title].size.push(item.size);
-        }
-      }
-    } else {
-      tshirts[item.title] = JSON.parse(JSON.stringify(item));
-      if (item.availableQty > 0) {
-        tshirts[item.title].color = [item.color];
-        tshirts[item.title].size = [item.size];
-      }
-    }
-  }
   return {
-    props: { products: JSON.parse(JSON.stringify(tshirts)) },
+    props: { products: JSON.parse(JSON.stringify(products)) },
   };
 }
 

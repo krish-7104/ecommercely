@@ -40,20 +40,23 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
               <li className="text-indigo-500">Hoddies</li>
             </a>
           </Link>
-          <Link href={"/laptop"}>
+          <Link href={"/jeans"}>
             <a>
-              <li className="text-indigo-500">Laptop</li>
+              <li className="text-indigo-500">Jeans</li>
             </a>
           </Link>
         </ul>
       </div>
       <div className="cart absolute right-0 mx-5 cursor-pointer flex">
         <Link href={"/login"}>
-          <a>
-            <RiAccountCircleFill className="mr-2 text-xl md:text-3xl" />
+          <a className="flex justify-center align-middle">
+            <RiAccountCircleFill className="mr-3 text-xl md:text-2xl text-indigo-600 hover:text-indigo-500" />
           </a>
         </Link>
-        <HiShoppingCart className="text-xl md:text-3xl" onClick={toggleCart} />
+        <HiShoppingCart
+          className="text-xl md:text-2xl flex justify-center align-middle  text-indigo-600 hover:text-indigo-500"
+          onClick={toggleCart}
+        />
       </div>
       <div
         className={`sidecart absolute top-0 right-0 bg-indigo-200 p-10 text-indigo-800 transition-transform ${
@@ -76,9 +79,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             return (
               <li key={k}>
                 <div className="item flex">
-                  <div className="w-3/4 font-normal text-sm">
-                    {cart[k].name}
-                  </div>
+                  <Link href={`/product/${k}`}>
+                    <div className="w-3/4 font-normal text-sm cursor-pointer">
+                      {cart[k].name}
+                    </div>
+                  </Link>
                   <div className="w-1/4 flex items-center justify-center mb-2 h-auto ">
                     <AiFillMinusCircle
                       className="cursor-pointer text-lg"
