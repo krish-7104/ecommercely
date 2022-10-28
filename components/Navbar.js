@@ -24,17 +24,12 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
       <div className="logo mx-5">
         <Link href={"/"}>
           <a>
-            <Image
-              src={"/logoTitle.png"}
-              height={40}
-              width={200}
-              alt="nav logo"
-            />
+            <p className="text-indigo-600 text-xl font-bold">ECommercely</p>
           </a>
         </Link>
       </div>
       <div className="nav py-4">
-        <ul className="flex space-x-6 font-bold">
+        <ul className="flex space-x-6 font-semibold">
           <Link href={"/tshirts"}>
             <a>
               <li className="text-indigo-500">T-Shirts</li>

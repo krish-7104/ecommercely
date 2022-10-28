@@ -4,14 +4,10 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Ewear - E Commerce Website</title>
+        <title>Ecommercely - Shop Wisely</title>
         <meta name="description" content="A E-Commerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      {/* <div>
-        <img src="/headImage.png" alt="head image" srcset="" />
-      </div> */}
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
           <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
