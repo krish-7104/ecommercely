@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import React from "react";
-
 const Order = ({ cart, subTotal }) => {
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -18,38 +18,48 @@ const Order = ({ cart, subTotal }) => {
               your place.
             </p>
             <div class="flex mb-4">
-              <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-left">
-                Description
+              <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-left font-bold text-indigo-600">
+                Products
               </a>
-              <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right">
-                Quantity
-              </a>
-              <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right">
-                Item Total
+              <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right font-bold text-indigo-600">
+                Total
               </a>
             </div>
             {Object.keys(cart).map((k) => {
               return (
                 <div className="flex border-b border-gray-200 py-2" key={k}>
-                  <span className="text-gray-500">{cart[k].name}</span>
-                  <span className="ml-auto text-gray-900">{cart[k].qty}</span>
-                  <span className="ml-auto text-gray-900">{cart[k].price}</span>
+                  <Link href={`/product/${k}`}>
+                    <a>
+                      <p className="text-gray-500 text-left">
+                        {cart[k].name}
+                        {/* {cart[k].name.slice(0, 40) + "..."} */}
+                      </p>
+                    </a>
+                  </Link>
+                  <div className="ml-auto text-gray-900 w-[30%] text-right flex-row">
+                    <p className="text-sm">
+                      {cart[k].qty} x {cart[k].price}
+                    </p>
+                    <p className="font-semibold">
+                      {cart[k].qty * cart[k].price}
+                    </p>
+                  </div>
                 </div>
               );
             })}
             <div className="flex mt-6">
+              <button className="flex mr-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                Track Order
+              </button>
               <span className="title-font font-medium text-2xl text-gray-900">
                 Subtotal ₹{subTotal}
               </span>
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Track Order
-              </button>
             </div>
           </div>
           <img
             alt="ecommerce"
-            className="lg:w-1/2 w-full lg:h-auto h-64 object-fit object-center rounded-lg"
-            src="https://images.unsplash.com/photo-1666859894548-ea54ac7a7591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
+            className="lg:w-1/2 w-full lg:h-auto h-64 object-contain object-center rounded-lg"
+            src="/orderImage.png"
           />
         </div>
       </div>

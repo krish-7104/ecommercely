@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
-import { useState } from "react";
-
-const Post = ({ addToCart }) => {
+import React, { useState } from "react";
+import Product from "../../models/Product";
+import mongoose from "mongoose";
+const Post = ({ addToCart, product }) => {
   const router = useRouter();
   const { slug } = router.query;
   const [pin, setPin] = useState();
@@ -21,65 +22,69 @@ const Post = ({ addToCart }) => {
         <div class="container px-5 py-16 mx-auto">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img
-              alt="ecommerce"
+              alt="product image"
               class="lg:w-1/2 w-full lg:h-auto object-cover object-top rounded"
-              src="https://m.media-amazon.com/images/I/81RcNGzlIhL._UX569_.jpg"
+              src={product.img}
             />
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 class="text-sm title-font text-gray-500 tracking-widest">
-                BRAND NAME
+              <h2 class="text-sm title-font text-indigo-500 tracking-widest font-bold">
+                {product.category.toUpperCase()}
               </h2>
-              <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">
-                The Catcher in the Rye
+              <h1 class="text-gray-900 text-3xl title-font font-medium my-2">
+                {product.title}
               </h1>
-              <p class="leading-relaxed">
-                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-                seitan poutine tumeric. Gastropub blue bottle austin listicle
-                pour-over, neutra jean shorts keytar banjo tattooed umami
-                cardigan.
-              </p>
+              <p class="leading-relaxed">{product.desc}</p>
               <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <div class="flex">
-                  <span class="mr-3">Color</span>
-                  <button class="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                  <button class="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                  <button class="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button>
+                  <span class="mr-3">
+                    <span className="text-indigo-500 font-semibold">Color</span>{" "}
+                    :{" "}
+                    {product.color.charAt(0).toUpperCase() +
+                      product.color.slice(1, product.color.length)}
+                  </span>
                 </div>
-                <div class="flex ml-6 items-center">
-                  <span class="mr-3">Size</span>
-                  <div class="relative">
-                    <select class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                      <option>SM</option>
-                      <option>M</option>
-                      <option>L</option>
-                      <option>XL</option>
-                    </select>
-                    <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                      <svg
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        class="w-4 h-4"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M6 9l6 6 6-6"></path>
-                      </svg>
-                    </span>
+                {product.size && (
+                  <div class="flex ml-6 items-center">
+                    <span class="mr-3 text-indigo-500 font-semibold">Size</span>
+                    <div class="relative">
+                      <select class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
+                        {product.size.split(", ").map((size) => {
+                          return <option key={size}>{size}</option>;
+                        })}
+                      </select>
+
+                      <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          class="w-4 h-4"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <div class="flex">
                 <span class="title-font font-medium text-2xl text-gray-900">
-                  ₹58.00
+                  ₹{product.price}
                 </span>
                 <button
                   class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
                   onClick={() => {
-                    addToCart(slug, 1, 499, "Green Tshirt", "Xl", "red");
+                    addToCart(
+                      slug,
+                      1,
+                      product.price,
+                      product.title,
+                      product.size,
+                      product.color
+                    );
                   }}
                 >
                   Add To Cart
@@ -119,5 +124,15 @@ const Post = ({ addToCart }) => {
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    mongoose.connect(process.env.MONGO_URI);
+  }
+  let product = await Product.findOne({ slug: context.query.slug });
+  return {
+    props: { product: JSON.parse(JSON.stringify(product)) },
+  };
+}
 
 export default Post;

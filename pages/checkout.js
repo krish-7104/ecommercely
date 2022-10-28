@@ -123,11 +123,11 @@ const Checkout = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
           {Object.keys(cart).map((k) => {
             return (
               <li key={k}>
-                <div className="item flex m-auto justify-between items-center bg-indigo-300 rounded-md py-3 px-2 md:w-2/3 md:px-10">
-                  <div className="font-semibold text-md md:text-2xl">
-                    {cart[k].name}
+                <div className="item flex m-auto justify-between items-center bg-indigo-300 rounded-md py-3 px-2 md:w-2/3 md:px-10 mb-3">
+                  <div className="font-normal text-sm md:text-lg">
+                    {cart[k].name.slice(0, 50) + "..."}
                   </div>
-                  <div className="mx-2 font-semibold text-md md:text-2xl">
+                  <div className="mx-2 font-normal text-sm md:text-lg">
                     {cart[k].qty} Item
                   </div>
                 </div>
@@ -139,9 +139,11 @@ const Checkout = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
           Subtotal : ₹{subTotal}
         </div>
         <div className="m-auto mt-10">
-          <button className="bg-indigo-700 px-10 py-4 text-white font-semibold text-xl rounded-md">
-            Pay Now!
-          </button>
+          <Link href={"/order"}>
+            <button className="bg-indigo-700 px-10 py-4 text-white font-semibold text-xl rounded-md">
+              Pay Now!
+            </button>
+          </Link>
         </div>
       </div>
     </div>

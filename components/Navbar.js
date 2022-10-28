@@ -41,21 +41,18 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
               <li className="text-indigo-500">Hoddies</li>
             </a>
           </Link>
-          <Link href={"/stickers"}>
+          <Link href={"/laptop"}>
             <a>
-              <li className="text-indigo-500">Stickers</li>
-            </a>
-          </Link>
-          <Link href={"/mugs"}>
-            <a>
-              <li className="text-indigo-500">Mugs</li>
+              <li className="text-indigo-500">Laptop</li>
             </a>
           </Link>
         </ul>
       </div>
       <div className="cart absolute right-0 mx-5 cursor-pointer flex">
         <Link href={"/login"}>
-          <RiAccountCircleFill className="mr-2 text-xl md:text-3xl" />
+          <a>
+            <RiAccountCircleFill className="mr-2 text-xl md:text-3xl" />
+          </a>
         </Link>
         <HiShoppingCart className="text-xl md:text-3xl" onClick={toggleCart} />
       </div>
@@ -120,12 +117,12 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
         </div>
         <div className="btns flex justify-center align-middle mt-5">
           <Link href="/checkout">
-            <button class="text-white bg-indigo-700 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded mx-auto">
+            <button className="text-white bg-indigo-700 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded mx-auto">
               Checkout
             </button>
           </Link>
           <button
-            class="border-2 border-indigo-700 text-indigo-700 py-2 px-4 focus:outline-none hover:bg-indigo-700 hover:text-white rounded mx-auto"
+            className="border-2 border-indigo-700 text-indigo-700 py-2 px-4 focus:outline-none hover:bg-indigo-700 hover:text-white rounded mx-auto"
             onClick={clearCart}
           >
             Clear Cart
