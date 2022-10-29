@@ -5,6 +5,7 @@ import Product from "../models/Product";
 import mongoose from "mongoose";
 import { motion } from "framer-motion";
 const Tshirts = ({ products }) => {
+  console.log(products);
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-10 mx-auto">
@@ -41,27 +42,15 @@ const Tshirts = ({ products }) => {
                       {products[item].title}
                     </h2>
                     <p className="mt-1">₹{products[item].price}</p>
-                    <div className="mt-2">
-                      {products[item].size}
-                      {/* {products[item].size.includes("XS") && (
-                        <span className="mr-2">XS</span>
-                      )}
-                      {products[item].size.includes("S") && (
-                        <span className="mr-2">S</span>
-                      )}
-                      {products[item].size.includes("M") && (
-                        <span className="mr-2">M</span>
-                      )}
-                      {products[item].size.includes("L") && (
-                        <span className="mr-2">L</span>
-                      )}
-                      {products[item].size.includes("XL") && (
-                        <span className="mr-2">XL</span>
-                      )}
-                      {products[item].size.includes("XXL") && (
-                        <span className="mr-2">XXL</span>
-                      )} */}
-                    </div>
+                    {/* <div className="mt-2">
+                      {products[item].size.map((size) => {
+                        return (
+                          <span key={size} className="mr-2">
+                            {size}
+                          </span>
+                        );
+                      })}
+                    </div> */}
                   </div>
                 </motion.div>
               </Link>
@@ -78,8 +67,31 @@ export async function getServerSideProps() {
     mongoose.connect(process.env.MONGO_URI);
   }
   let products = await Product.find({ category: "T Shirt" });
+  let tshirts = {};
+  for (let item of products) {
+    if (item.title in tshirts) {
+      if (
+        !tshirts[item.title].color.includes(item.color) &&
+        item.availableQty > 0
+      ) {
+        tshirts[item.title].color.push(item.color);
+        if (
+          !tshirts[item.title].size.includes(item.size) &&
+          item.availableQty > 0
+        ) {
+          tshirts[item.title].size.concat(item.size);
+        }
+      }
+    } else {
+      tshirts[item.title] = JSON.parse(JSON.stringify(item));
+      if (item.availableQty > 0) {
+        tshirts[item.title].color = [item.color];
+        tshirts[item.title].size = [item.size];
+      }
+    }
+  }
   return {
-    props: { products: JSON.parse(JSON.stringify(products)) },
+    props: { products: JSON.parse(JSON.stringify(tshirts)) },
   };
 }
 

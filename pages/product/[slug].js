@@ -3,11 +3,13 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Product from "../../models/Product";
 import mongoose from "mongoose";
-const Post = ({ addToCart, product }) => {
+const Post = ({ addToCart, product, variants }) => {
   const router = useRouter();
   const { slug } = router.query;
   const [pin, setPin] = useState();
   const [available, setAvailable] = useState("");
+  const [selectedSize, setSelectedSize] = useState();
+  const [selectedColor, setSelectedColor] = useState(Object.keys(variants)[0]);
 
   const checkServiceAvailability = async () => {
     let pins = await fetch("http://localhost:3000/api/pincode");
@@ -18,49 +20,83 @@ const Post = ({ addToCart, product }) => {
 
   return (
     <>
-      <section class="text-gray-600 body-font overflow-hidden">
-        <div class="container px-5 py-16 mx-auto">
-          <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <section className="text-gray-600 body-font overflow-hidden">
+        <div className="container px-5 py-16 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img
               alt="product image"
-              class="lg:w-1/2 w-full object-contain object-top rounded"
+              className="lg:w-1/2 w-full object-contain object-top rounded"
               src={product.img}
             />
-            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 class="text-sm title-font text-indigo-500 tracking-widest font-bold">
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h2 className="text-sm title-font text-indigo-500 tracking-widest font-bold">
                 {product.category.toUpperCase()}
               </h2>
-              <h1 class="text-gray-900 text-3xl title-font font-medium my-2">
+              <h1 className="text-gray-900 text-3xl title-font font-medium my-2">
                 {product.title}
               </h1>
-              <p class="leading-relaxed">{product.desc}</p>
-              <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                <div class="flex">
-                  <span class="mr-3">
-                    <span className="text-indigo-500 font-semibold">Color</span>{" "}
-                    :{" "}
-                    {product.color.charAt(0).toUpperCase() +
-                      product.color.slice(1, product.color.length)}
-                  </span>
-                </div>
-                {product.size && (
-                  <div class="flex ml-6 items-center">
-                    <span class="mr-3 text-indigo-500 font-semibold">Size</span>
-                    <div class="relative">
-                      <select class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                        {product.size.split(", ").map((size) => {
-                          return <option key={size}>{size}</option>;
+              <p className="leading-relaxed">{product.desc}</p>
+              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+                {variants && (
+                  <div className="flex ml-6 items-center">
+                    <span className="mr-3 text-indigo-500 font-semibold">
+                      Color
+                    </span>
+                    <div className="relative">
+                      <select
+                        className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                        onChange={(e) => setSelectedColor(e.target.value)}
+                      >
+                        {Object.keys(variants).map((color) => {
+                          return (
+                            <option key={color} value={color}>
+                              {color}
+                            </option>
+                          );
                         })}
                       </select>
-
-                      <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                      <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                         <svg
                           fill="none"
                           stroke="currentColor"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                           stroke-width="2"
-                          class="w-4 h-4"
+                          className="w-4 h-4"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M6 9l6 6 6-6"></path>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {product.size && (
+                  <div className="flex ml-6 items-center">
+                    <span className="mr-3 text-indigo-500 font-semibold">
+                      Size
+                    </span>
+                    <div className="relative">
+                      <select
+                        className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                        onChange={(e) => setSelectedSize(e.target.value)}
+                      >
+                        {Object.keys(variants[selectedColor]).map((size) => {
+                          return (
+                            <option key={size} value={size}>
+                              {size}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          className="w-4 h-4"
                           viewBox="0 0 24 24"
                         >
                           <path d="M6 9l6 6 6-6"></path>
@@ -70,12 +106,12 @@ const Post = ({ addToCart, product }) => {
                   </div>
                 )}
               </div>
-              <div class="flex">
-                <span class="title-font font-medium text-2xl text-gray-900">
+              <div className="flex">
+                <span className="title-font font-medium text-2xl text-gray-900">
                   ₹{product.price}
                 </span>
                 <button
-                  class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
                   onClick={() => {
                     addToCart(
                       slug,
@@ -101,7 +137,7 @@ const Post = ({ addToCart, product }) => {
                   onChange={(e) => setPin(e.target.value)}
                 />
                 <button
-                  class="flex text-white bg-indigo-500 border-2 border-indigo-500 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded ml-0 mt-2 md:ml-2 md:mt-0"
+                  className="flex text-white bg-indigo-500 border-2 border-indigo-500 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded ml-0 mt-2 md:ml-2 md:mt-0"
                   onClick={checkServiceAvailability}
                 >
                   Check
@@ -130,8 +166,21 @@ export async function getServerSideProps(context) {
     mongoose.connect(process.env.MONGO_URI);
   }
   let product = await Product.findOne({ slug: context.query.slug });
+  let variants = await Product.find({ title: product.title });
+  let colorSizeSlug = {};
+  for (let item of variants) {
+    if (Object.keys(colorSizeSlug).includes(item.color)) {
+      colorSizeSlug[item.color][item.size] = { slug: item.slug };
+    } else {
+      colorSizeSlug[item.color] = {};
+      colorSizeSlug[item.color][item.size] = { slug: item.slug };
+    }
+  }
   return {
-    props: { product: JSON.parse(JSON.stringify(product)) },
+    props: {
+      product: JSON.parse(JSON.stringify(product)),
+      variants: JSON.parse(JSON.stringify(colorSizeSlug)),
+    },
   };
 }
 
