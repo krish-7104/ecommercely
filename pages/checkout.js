@@ -125,7 +125,13 @@ const Checkout = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
               <li key={k}>
                 <div className="item flex m-auto justify-between items-center bg-indigo-300 rounded-md py-3 px-2 md:w-2/3 md:px-10 mb-3">
                   <div className="font-normal text-sm md:text-lg">
-                    {cart[k].name.slice(0, 50) + "..."}
+                    {cart[k].name +
+                      " " +
+                      cart[k].size +
+                      " " +
+                      cart[k].variant +
+                      " - ₹" +
+                      cart[k].price}
                   </div>
                   <div className="mx-2 font-normal text-sm md:text-lg">
                     {cart[k].qty} Item

@@ -5,7 +5,6 @@ import Product from "../models/Product";
 import mongoose from "mongoose";
 import { motion } from "framer-motion";
 const Tshirts = ({ products }) => {
-  console.log(products);
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-10 mx-auto">

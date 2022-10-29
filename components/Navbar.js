@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { HiShoppingCart } from "react-icons/hi";
 import {
@@ -11,12 +10,12 @@ import { RiAccountCircleFill } from "react-icons/ri";
 const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const ref = useRef();
   const toggleCart = () => {
-    if (ref.current.classList.contains("translate-x-full")) {
-      ref.current.classList.remove("translate-x-full");
-      ref.current.classList.add("translate-x-0");
-    } else if (!ref.current.classList.contains("translate-x-full")) {
-      ref.current.classList.add("translate-x-full");
-      ref.current.classList.remove("translate-x-0");
+    if (ref.current.classList.contains("hidden")) {
+      ref.current.classList.remove("hidden");
+      ref.current.classList.add("block");
+    } else if (!ref.current.classList.contains("hidden")) {
+      ref.current.classList.add("hidden");
+      ref.current.classList.remove("block");
     }
   };
   return (
@@ -53,15 +52,24 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             <RiAccountCircleFill className="mr-3 text-xl md:text-2xl text-indigo-600 hover:text-indigo-500" />
           </a>
         </Link>
-        <HiShoppingCart
-          className="text-xl md:text-2xl flex justify-center align-middle  text-indigo-600 hover:text-indigo-500"
-          onClick={toggleCart}
-        />
+        <div className="relative" onClick={toggleCart}>
+          <span
+            className="absolute right-0 -top-1 text-white bg-indigo-600 rounded-full px-1"
+            style={{ fontSize: 8 }}
+          >
+            {Object.keys(cart).length}
+          </span>
+          <HiShoppingCart className="text-xl md:text-2xl flex justify-center align-middle  text-indigo-600 hover:text-indigo-500" />
+        </div>
       </div>
-      <div
+      {/* <div
         className={`sidecart absolute top-0 right-0 bg-indigo-200 p-10 text-indigo-800 transition-transform ${
-          Object.keys(cart).length !== 0 ? "translate-x-0" : "translate-x-full"
+          Object.keys(cart).length !== 0 ? "block" : "hidden"
         } rounded-md z-10 w-80 h-[100vh] flex justify-start flex-col`}
+        ref={ref}
+      > */}
+      <div
+        className="sidecart absolute top-0 right-0 bg-indigo-200 p-10 text-indigo-800 transition-transform hidden rounded-md z-10 w-80 h-[100vh] flex justify-start flex-col"
         ref={ref}
       >
         <h2 className="font-bold text-xl mb-4">Shopping Cart</h2>
@@ -81,7 +89,13 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                 <div className="item flex">
                   <Link href={`/product/${k}`}>
                     <div className="w-3/4 font-normal text-sm cursor-pointer">
-                      {cart[k].name}
+                      {cart[k].name +
+                        " " +
+                        cart[k].size +
+                        " " +
+                        cart[k].variant +
+                        " - ₹" +
+                        cart[k].price}
                     </div>
                   </Link>
                   <div className="w-1/4 flex items-center justify-center mb-2 h-auto ">
