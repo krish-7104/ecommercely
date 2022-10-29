@@ -21,24 +21,23 @@ const Post = ({ addToCart, product, variants }) => {
   const colorChangeHandler = (e) => {
     setSelectedColor(e.target.value);
     setSelectedSize(Object.keys(variants[e.target.value])[0]);
-    let k = product.title.toLowerCase().replaceAll(" ", "-");
     let link =
-      k +
-      "-" +
-      e.target.value.toLowerCase() +
-      "-" +
-      Object.keys(variants[e.target.value])[0].toLowerCase();
+      variants[e.target.value][Object.keys(variants[e.target.value])[0]].slug;
+
     window.location = link;
   };
   const sizeChangeHandler = (e) => {
     setSelectedSize(e.target.value);
-    let k = product.title.toLowerCase().replaceAll(" ", "-");
-    let link =
-      k +
-      "-" +
-      selectedColor.toLowerCase() +
-      "-" +
-      e.target.value.toLowerCase();
+    // let k = product.title.toLowerCase().replaceAll(" ", "-");
+    // let link =
+    //   k +
+    //   "-" +
+    //   selectedColor.toLowerCase() +
+    //   "-" +
+    //   e.target.value.toLowerCase();
+    // window.location = link;
+    let link = variants[selectedColor][e.target.value].slug;
+
     window.location = link;
   };
 
