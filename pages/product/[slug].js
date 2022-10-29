@@ -8,14 +8,38 @@ const Post = ({ addToCart, product, variants }) => {
   const { slug } = router.query;
   const [pin, setPin] = useState();
   const [available, setAvailable] = useState("");
-  const [selectedSize, setSelectedSize] = useState();
-  const [selectedColor, setSelectedColor] = useState(Object.keys(variants)[0]);
+  const [selectedSize, setSelectedSize] = useState(product.size);
+  const [selectedColor, setSelectedColor] = useState(product.color);
 
   const checkServiceAvailability = async () => {
     let pins = await fetch("http://localhost:3000/api/pincode");
     let pinJson = await pins.json();
     if (pinJson.includes(parseInt(pin))) setAvailable(true);
     else setAvailable(false);
+  };
+
+  const colorChangeHandler = (e) => {
+    setSelectedColor(e.target.value);
+    setSelectedSize(Object.keys(variants[e.target.value])[0]);
+    let k = product.title.toLowerCase().replaceAll(" ", "-");
+    let link =
+      k +
+      "-" +
+      e.target.value.toLowerCase() +
+      "-" +
+      Object.keys(variants[e.target.value])[0].toLowerCase();
+    window.location = link;
+  };
+  const sizeChangeHandler = (e) => {
+    setSelectedSize(e.target.value);
+    let k = product.title.toLowerCase().replaceAll(" ", "-");
+    let link =
+      k +
+      "-" +
+      selectedColor.toLowerCase() +
+      "-" +
+      e.target.value.toLowerCase();
+    window.location = link;
   };
 
   return (
@@ -45,14 +69,22 @@ const Post = ({ addToCart, product, variants }) => {
                     <div className="relative">
                       <select
                         className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
-                        onChange={(e) => setSelectedColor(e.target.value)}
+                        onChange={colorChangeHandler}
                       >
                         {Object.keys(variants).map((color) => {
-                          return (
-                            <option key={color} value={color}>
-                              {color}
-                            </option>
-                          );
+                          if (selectedColor === color) {
+                            return (
+                              <option selected key={color} value={color}>
+                                {color}
+                              </option>
+                            );
+                          } else {
+                            return (
+                              <option key={color} value={color}>
+                                {color}
+                              </option>
+                            );
+                          }
                         })}
                       </select>
                       <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
@@ -79,14 +111,22 @@ const Post = ({ addToCart, product, variants }) => {
                     <div className="relative">
                       <select
                         className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
-                        onChange={(e) => setSelectedSize(e.target.value)}
+                        onChange={sizeChangeHandler}
                       >
                         {Object.keys(variants[selectedColor]).map((size) => {
-                          return (
-                            <option key={size} value={size}>
-                              {size}
-                            </option>
-                          );
+                          if (selectedSize === size) {
+                            return (
+                              <option selected key={size} value={size}>
+                                {size}
+                              </option>
+                            );
+                          } else {
+                            return (
+                              <option key={size} value={size}>
+                                {size}
+                              </option>
+                            );
+                          }
                         })}
                       </select>
                       <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">

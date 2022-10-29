@@ -24,7 +24,7 @@ const Tshirts = ({ products }) => {
                     stiffness: 260,
                     damping: 20,
                   }}
-                  className="lg:w-1/5 md:w-1/2 p-4 w-full m-5 shadow-lg cursor-pointer rounded-lg hover:shadow-2xl"
+                  className="lg:w-1/5 md:w-1/2 p-4 w-full m-5 shadow-lg cursor-pointer rounded-lg hover:shadow-xl"
                 >
                   <a className="block relative rounded overflow-hidden">
                     <img
