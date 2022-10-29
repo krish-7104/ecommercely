@@ -23,21 +23,11 @@ const Post = ({ addToCart, product, variants }) => {
     setSelectedSize(Object.keys(variants[e.target.value])[0]);
     let link =
       variants[e.target.value][Object.keys(variants[e.target.value])[0]].slug;
-
     window.location = link;
   };
   const sizeChangeHandler = (e) => {
     setSelectedSize(e.target.value);
-    // let k = product.title.toLowerCase().replaceAll(" ", "-");
-    // let link =
-    //   k +
-    //   "-" +
-    //   selectedColor.toLowerCase() +
-    //   "-" +
-    //   e.target.value.toLowerCase();
-    // window.location = link;
     let link = variants[selectedColor][e.target.value].slug;
-
     window.location = link;
   };
 
