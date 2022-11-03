@@ -18,18 +18,34 @@ const Footer = () => {
               SHOP
             </h2>
             <nav className="list-none mb-10">
-              <li>
-                <a className="text-gray-600 hover:text-gray-800">T Shirts</a>
-              </li>
-              <li>
-                <a className="text-gray-600 hover:text-gray-800">Shirts</a>
-              </li>
-              <li>
-                <a className="text-gray-600 hover:text-gray-800">Hoddies</a>
-              </li>
-              <li>
-                <a className="text-gray-600 hover:text-gray-800">Jeans</a>
-              </li>
+              <Link href={"/tshirts"}>
+                <li>
+                  <a className="text-gray-600 hover:text-gray-800 cursor-pointer">
+                    T Shirts
+                  </a>
+                </li>
+              </Link>
+              <Link href={"/shirts"}>
+                <li>
+                  <a className="text-gray-600 hover:text-gray-800 cursor-pointer">
+                    Shirts
+                  </a>
+                </li>
+              </Link>
+              <Link href={"/hoddies"}>
+                <li>
+                  <a className="text-gray-600 hover:text-gray-800 cursor-pointer">
+                    Hoddies
+                  </a>
+                </li>
+              </Link>
+              <Link href={"/jeans"}>
+                <li>
+                  <a className="text-gray-600 hover:text-gray-800 cursor-pointer">
+                    Jeans
+                  </a>
+                </li>
+              </Link>
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">

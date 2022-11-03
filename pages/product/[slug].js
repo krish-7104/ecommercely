@@ -3,19 +3,41 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Product from "../../models/Product";
 import mongoose from "mongoose";
-const Post = ({ addToCart, product, variants }) => {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const Post = ({ addToCart, product, variants, buyNow }) => {
   const router = useRouter();
   const { slug } = router.query;
   const [pin, setPin] = useState();
-  const [available, setAvailable] = useState("");
   const [selectedSize, setSelectedSize] = useState(product.size);
   const [selectedColor, setSelectedColor] = useState(product.color);
 
   const checkServiceAvailability = async () => {
     let pins = await fetch("http://localhost:3000/api/pincode");
     let pinJson = await pins.json();
-    if (pinJson.includes(parseInt(pin))) setAvailable(true);
-    else setAvailable(false);
+    if (pinJson.includes(parseInt(pin))) {
+      toast.success("Your Pincode Is Serviceable", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      toast.error("Sorry, Pincode Not Serviceable", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   const colorChangeHandler = (e) => {
@@ -23,12 +45,12 @@ const Post = ({ addToCart, product, variants }) => {
     setSelectedSize(Object.keys(variants[e.target.value])[0]);
     let link =
       variants[e.target.value][Object.keys(variants[e.target.value])[0]].slug;
-    window.location = link;
+    router.push(link);
   };
   const sizeChangeHandler = (e) => {
     setSelectedSize(e.target.value);
     let link = variants[selectedColor][e.target.value].slug;
-    window.location = link;
+    router.push(link);
   };
 
   return (
@@ -142,6 +164,21 @@ const Post = ({ addToCart, product, variants }) => {
                 <button
                   className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
                   onClick={() => {
+                    buyNow(
+                      slug,
+                      1,
+                      product.price,
+                      product.title,
+                      product.size,
+                      product.color
+                    );
+                  }}
+                >
+                  Buy Now
+                </button>
+                <button
+                  className="flex ml-5 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  onClick={() => {
                     addToCart(
                       slug,
                       1,
@@ -172,19 +209,10 @@ const Post = ({ addToCart, product, variants }) => {
                   Check
                 </button>
               </div>
-              {!available && available != "" && (
-                <div className="text-red-600 mt-3 text-center md:text-left">
-                  Sorry, We Do Not Delivier To This Pincode
-                </div>
-              )}
-              {available && available != "" && (
-                <div className="text-green-600 mt-3 text-center md:text-left">
-                  We Are Delivering To This Pincode
-                </div>
-              )}
             </div>
           </div>
         </div>
+        <ToastContainer />
       </section>
     </>
   );

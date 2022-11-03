@@ -23,7 +23,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
       <div className="logo mx-5">
         <Link href={"/"}>
           <a>
-            <p className="text-indigo-600 text-xl font-bold">ECommercely</p>
+            <p className="text-indigo-800 text-xl font-bold">ECommercely</p>
           </a>
         </Link>
       </div>
@@ -31,17 +31,24 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
         <ul className="flex space-x-6 font-semibold">
           <Link href={"/tshirts"}>
             <a>
-              <li className="text-indigo-500">T-Shirts</li>
+              <li className="text-indigo-500 hover:text-indigo-700">
+                T-Shirts
+              </li>
+            </a>
+          </Link>
+          <Link href={"/shirts"}>
+            <a>
+              <li className="text-indigo-500 hover:text-indigo-700">Shirts</li>
             </a>
           </Link>
           <Link href={"/hoddies"}>
             <a>
-              <li className="text-indigo-500">Hoddies</li>
+              <li className="text-indigo-500 hover:text-indigo-700">Hoddies</li>
             </a>
           </Link>
           <Link href={"/jeans"}>
             <a>
-              <li className="text-indigo-500">Jeans</li>
+              <li className="text-indigo-500 hover:text-indigo-700">Jeans</li>
             </a>
           </Link>
         </ul>
