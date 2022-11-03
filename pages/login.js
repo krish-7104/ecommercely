@@ -21,6 +21,7 @@ const Login = () => {
     });
     let response = await res.json();
     if (response.success) {
+      localStorage.setItem("token", response.token);
       toast.success("Account Created Successfully!", {
         position: "bottom-right",
         autoClose: 3000,
