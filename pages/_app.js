@@ -7,7 +7,8 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   const [cart, setCart] = useState({});
   const [subTotal, setSubTotal] = useState(0);
-
+  const [user, setUser] = useState({ value: null });
+  const [key, setKey] = useState(0);
   const router = useRouter();
   useEffect(() => {
     try {
@@ -19,7 +20,12 @@ function MyApp({ Component, pageProps }) {
       console.log(error);
       localStorage.clear();
     }
-  }, []);
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUser({ value: token });
+      setKey(Math.random());
+    }
+  }, [router.query]);
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
     let newCart = cart;
@@ -30,6 +36,12 @@ function MyApp({ Component, pageProps }) {
     }
     setCart(newCart);
     saveCart(newCart);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    setKey(Math.random());
+    setUser({ value: null });
   };
 
   const saveCart = (myCart) => {
@@ -68,12 +80,14 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Navbar
-        key={subTotal}
+        key={key}
+        user={user}
         cart={cart}
         addToCart={addToCart}
         removeFromCart={removeFromCart}
         clearCart={clearCart}
         subTotal={subTotal}
+        logoutHandler={logoutHandler}
       />
       <Component
         buyNow={buyNow}

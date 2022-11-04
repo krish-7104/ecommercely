@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { HiShoppingCart } from "react-icons/hi";
 import {
@@ -7,8 +8,19 @@ import {
   AiFillMinusCircle,
 } from "react-icons/ai";
 import { RiAccountCircleFill } from "react-icons/ri";
-const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
+const Navbar = ({
+  user,
+  cart,
+  addToCart,
+  removeFromCart,
+  clearCart,
+  subTotal,
+  logoutHandler,
+}) => {
   const ref = useRef();
+  const [dropdown, setDropDown] = useState(false);
+  const router = useRouter();
+
   const toggleCart = () => {
     if (ref.current.classList.contains("hidden")) {
       ref.current.classList.remove("hidden");
@@ -20,7 +32,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   };
   return (
     <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 bg-white z-10">
-      <div className="logo mx-5">
+      <div className="logo ml-5 mr-auto md:mr-5 md:mt-0 mt-2">
         <Link href={"/"}>
           <a>
             <p className="text-indigo-800 text-xl font-bold">ECommercely</p>
@@ -53,12 +65,47 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
           </Link>
         </ul>
       </div>
-      <div className="cart absolute right-0 mx-5 cursor-pointer flex">
-        <Link href={"/login"}>
-          <a className="flex justify-center align-middle">
-            <RiAccountCircleFill className="mr-3 text-xl md:text-2xl text-indigo-600 hover:text-indigo-500" />
-          </a>
-        </Link>
+      <div className="cart absolute right-0 mx-5 cursor-pointer items-center flex md:mt-0 -mt-10">
+        {!user.value && (
+          <Link href={"/login"}>
+            <a className="flex justify-center align-middle bg-indigo-500 mr-2 text-sm font-semibold text-white px-2 py-1 rounded-sm">
+              Login
+            </a>
+          </Link>
+        )}
+        {dropdown && (
+          <div
+            onMouseEnter={() => setDropDown(true)}
+            onMouseLeave={() => setDropDown(false)}
+            className="absolute right-9 top-6 px-4 py-2 rounded-md w-40 bg-indigo-300 "
+          >
+            <ul>
+              <Link href={"/"}>
+                <li className="text-sm font-semibold py-1 text-gray-700 hover:text-black">
+                  My Account
+                </li>
+              </Link>
+              <Link href={"/order"}>
+                <li className="text-sm font-semibold py-1 text-gray-700 hover:text-black">
+                  Orders
+                </li>
+              </Link>
+              <li
+                onClick={logoutHandler}
+                className="text-sm font-semibold py-1 text-gray-700 hover:text-black"
+              >
+                Logout
+              </li>
+            </ul>
+          </div>
+        )}
+        {user.value && (
+          <RiAccountCircleFill
+            onMouseEnter={() => setDropDown(true)}
+            onMouseLeave={() => setDropDown(false)}
+            className="mr-3 text-xl md:text-2xl text-indigo-600 hover:text-indigo-500"
+          />
+        )}
         <div className="relative" onClick={toggleCart}>
           <span
             className="absolute right-0 -top-1 text-white bg-indigo-600 rounded-full px-1"
@@ -76,7 +123,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
         ref={ref}
       > */}
       <div
-        className="sidecart absolute top-0 right-0 bg-indigo-200 p-10 text-indigo-800 transition-transform hidden rounded-md z-10 w-80 h-[100vh] flex justify-start flex-col"
+        className="sidecart absolute top-0 right-0 bg-indigo-200 p-10 text-indigo-800 transition-transform hidden rounded-md z-10 w-80 h-[100vh] justify-start flex-col"
         ref={ref}
       >
         <h2 className="font-bold text-xl mb-4">Shopping Cart</h2>
