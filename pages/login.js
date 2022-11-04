@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Login = () => {
+const Login = ({ getCart }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -36,6 +36,7 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
       });
+      getCart();
       router.push("/");
     } else {
       toast.error(response.error, {

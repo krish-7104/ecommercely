@@ -4,7 +4,6 @@ import React from "react";
 import Order from "../models/Order";
 import mongoose from "mongoose";
 const MyOrder = ({ order }) => {
-  console.log(order);
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">

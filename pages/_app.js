@@ -19,29 +19,41 @@ function MyApp({ Component, pageProps }) {
     router.events.on("routeChangeComplete", () => {
       setProgress(100);
     });
-    try {
-      if (localStorage.getItem("cart")) {
-        setCart(JSON.parse(localStorage.getItem("cart")));
-        saveCart(JSON.parse(localStorage.getItem("cart")));
-      }
-    } catch (error) {
-      console.log(error);
-      localStorage.clear();
-    }
+    getCart();
     const token = localStorage.getItem("token");
     if (token) {
       setUser({ value: token });
     }
     setKey(Math.random());
-  }, [router.events, router.query]);
+  }, [router.events, router.query, user.value]);
+
+  const getCart = async () => {
+    let body = { user: user.value };
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getcart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    let response = await res.json();
+    response.length !== 0 && setCart(response[0].products);
+  };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
-    let newCart = cart;
-    if (itemCode in cart) {
-      newCart[itemCode].qty = cart[itemCode].qty + qty;
-    } else {
+    let newCart;
+    if (cart === undefined) {
+      newCart = {};
       newCart[itemCode] = { qty: 1, price, name, size, variant };
+    } else {
+      newCart = cart;
+      if (itemCode in cart) {
+        newCart[itemCode].qty = cart[itemCode].qty + qty;
+      } else {
+        newCart[itemCode] = { qty: 1, price, name, size, variant };
+      }
     }
+
     setCart(newCart);
     saveCart(newCart);
   };
@@ -53,14 +65,17 @@ function MyApp({ Component, pageProps }) {
     router.push("/");
   };
 
-  const saveCart = (myCart) => {
-    localStorage.setItem("cart", JSON.stringify(myCart));
-    let subt = 0;
-    let keys = Object.keys(myCart);
-    for (let i = 0; i < keys.length; i++) {
-      subt += myCart[keys[i]].price * myCart[keys[i]].qty;
-    }
-    setSubTotal(subt);
+  const saveCart = async (myCart) => {
+    let body = { user: user.value, products: myCart };
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/savecart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    let response = await res.json();
+    setKey(Math.random());
   };
 
   const clearCart = () => {
@@ -105,6 +120,7 @@ function MyApp({ Component, pageProps }) {
           clearCart={clearCart}
           subTotal={subTotal}
           logoutHandler={logoutHandler}
+          getCart={getCart}
         />
       )}
       <Component
@@ -114,6 +130,7 @@ function MyApp({ Component, pageProps }) {
         removeFromCart={removeFromCart}
         clearCart={clearCart}
         subTotal={subTotal}
+        getCart={getCart}
         {...pageProps}
       />
       <Footer />

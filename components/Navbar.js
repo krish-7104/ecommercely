@@ -30,6 +30,7 @@ const Navbar = ({
       ref.current.classList.remove("block");
     }
   };
+
   return (
     <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 bg-white z-10">
       <div className="logo ml-5 mr-auto md:mr-5 md:mt-0 mt-2">
@@ -111,7 +112,7 @@ const Navbar = ({
             className="absolute right-0 -top-1 text-white bg-indigo-600 rounded-full px-1"
             style={{ fontSize: 8 }}
           >
-            {Object.keys(cart).length}
+            {cart !== undefined ? Object.keys(cart).length : 0}
           </span>
           <HiShoppingCart className="text-xl md:text-2xl flex justify-center align-middle  text-indigo-600 hover:text-indigo-500" />
         </div>
@@ -134,57 +135,59 @@ const Navbar = ({
           <AiOutlineClose />
         </span>
         <ol>
-          {Object.keys(cart).length === 0 && (
+          {console.log(cart)}
+          {cart === undefined && (
             <div className="text-center font-normal">No Items In The Cart</div>
           )}
-          {Object.keys(cart).map((k) => {
-            return (
-              <li key={k}>
-                <div className="item flex">
-                  <Link href={`/product/${k}`}>
-                    <div className="w-3/4 font-normal text-sm cursor-pointer">
-                      {cart[k].name +
-                        " " +
-                        cart[k].size +
-                        " " +
-                        cart[k].variant +
-                        " - ₹" +
-                        cart[k].price}
+          {cart !== undefined &&
+            Object.keys(cart).map((k) => {
+              return (
+                <li key={k}>
+                  <div className="item flex">
+                    <Link href={`/product/${k}`}>
+                      <div className="w-3/4 font-normal text-sm cursor-pointer">
+                        {cart[k].name +
+                          " " +
+                          cart[k].size +
+                          " " +
+                          cart[k].variant +
+                          " - ₹" +
+                          cart[k].price}
+                      </div>
+                    </Link>
+                    <div className="w-1/4 flex items-center justify-center mb-2 h-auto ">
+                      <AiFillMinusCircle
+                        className="cursor-pointer text-lg"
+                        onClick={() =>
+                          removeFromCart(
+                            k,
+                            1,
+                            cart[k].price,
+                            cart[k].name,
+                            cart[k].size,
+                            cart[k].variant
+                          )
+                        }
+                      />
+                      <span className="mx-2 font-semibold">{cart[k].qty}</span>
+                      <AiFillPlusCircle
+                        className="cursor-pointer text-lg"
+                        onClick={() =>
+                          addToCart(
+                            k,
+                            1,
+                            cart[k].price,
+                            cart[k].name,
+                            cart[k].size,
+                            cart[k].variant
+                          )
+                        }
+                      />
                     </div>
-                  </Link>
-                  <div className="w-1/4 flex items-center justify-center mb-2 h-auto ">
-                    <AiFillMinusCircle
-                      className="cursor-pointer text-lg"
-                      onClick={() =>
-                        removeFromCart(
-                          k,
-                          1,
-                          cart[k].price,
-                          cart[k].name,
-                          cart[k].size,
-                          cart[k].variant
-                        )
-                      }
-                    />
-                    <span className="mx-2 font-semibold">{cart[k].qty}</span>
-                    <AiFillPlusCircle
-                      className="cursor-pointer text-lg"
-                      onClick={() =>
-                        addToCart(
-                          k,
-                          1,
-                          cart[k].price,
-                          cart[k].name,
-                          cart[k].size,
-                          cart[k].variant
-                        )
-                      }
-                    />
                   </div>
-                </div>
-              </li>
-            );
-          })}
+                </li>
+              );
+            })}
         </ol>
         <div className="text-center text-md text-indigo-600 mt-10">
           Subtotal : ₹{subTotal}
