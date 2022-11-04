@@ -11,8 +11,8 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
   const [address, setAddress] = useState("");
-
   const router = useRouter();
+
   const payNowHandler = async () => {
     if (Object.keys(cart).length === 0) {
       toast.warn("Card Is Empty!", {
@@ -27,35 +27,39 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
       });
     } else {
       if (name && email && phone && state && city && pincode && address) {
-        let id = Date.now() * 10 * Math.random().toString().slice(0, 10);
-        const body = {
-          email,
-          address: [address, state, city, pincode],
-          amount: subTotal,
-          orderId: parseInt(id),
-          products: cart,
-        };
-        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/order`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        });
-        let response = await res.json();
-        toast.success("Payment Done Successfully!", {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "dark",
-        });
-        setTimeout(() => {
+        let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
+        let pinJson = await pins.json();
+        if (pinJson.includes(parseInt(pincode))) {
+          let id = (Date.now() * 10 * Math.random()).toString().slice(0, 10);
+          const body = {
+            email,
+            address: [address, state, city, pincode],
+            amount: subTotal,
+            orderId: parseInt(id),
+            products: cart,
+          };
+          let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/order`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          });
+          let response = await res.json();
           router.push(`/order/?id=${response.orderId}`);
-        }, 1400);
-        clearCart();
+          clearCart();
+        } else {
+          toast.error("Pincode Is Not Serviceable!", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
       } else {
         toast.error("Fill All The Details!", {
           position: "bottom-right",
@@ -75,8 +79,8 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
   return (
     <div className="container m-auto">
       <h1 className="font-bold text-5xl my-10 text-center">Checkout</h1>
-      <h2 className="font-bold text-2xl my-4 text-center">
-        1. Delivery Details
+      <h2 className="font-bold text-2xl my-4 text-center text-indigo-700">
+        Delivery Details
       </h2>
       <section className="text-gray-600 body-font relative">
         <div className="container px-5 py-24 mx-auto">
@@ -121,42 +125,6 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label
-                    htmlFor="state"
-                    className="leading-7 text-sm text-gray-600"
-                  >
-                    State
-                  </label>
-                  <input
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                    type="text"
-                    id="state"
-                    name="state"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                </div>
-              </div>
-              <div className="p-2 w-1/2">
-                <div className="relative">
-                  <label
-                    htmlFor="city"
-                    className="leading-7 text-sm text-gray-600"
-                  >
-                    City
-                  </label>
-                  <input
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    type="text"
-                    id="city"
-                    name="city"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                  />
-                </div>
-              </div>
-              <div className="p-2 w-1/2">
-                <div className="relative">
-                  <label
                     htmlFor="phone"
                     className="leading-7 text-sm text-gray-600"
                   >
@@ -190,6 +158,43 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                   />
                 </div>
               </div>
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label
+                    htmlFor="state"
+                    className="leading-7 text-sm text-gray-600"
+                  >
+                    State
+                  </label>
+                  <input
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                    type="text"
+                    id="state"
+                    name="state"
+                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  />
+                </div>
+              </div>
+              <div className="p-2 w-1/2">
+                <div className="relative">
+                  <label
+                    htmlFor="city"
+                    className="leading-7 text-sm text-gray-600"
+                  >
+                    City
+                  </label>
+                  <input
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    type="text"
+                    id="city"
+                    name="city"
+                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  />
+                </div>
+              </div>
+
               <div className="p-2 w-full">
                 <div className="relative">
                   <label
@@ -212,50 +217,107 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
         </div>
       </section>
 
-      <h2 className="font-bold text-2xl my-4 text-center">
-        2. Review Cart Items
+      <h2 className="font-bold text-2xl my-4 text-center text-indigo-700">
+        Review Cart Items
       </h2>
-      <div
-        className="sidecart text-indigo-800 rounded-md z-10 flex justify-start flex-col p-4 md:p-10"
-        ref={ref}
-      >
-        <ol>
-          {Object.keys(cart).length === 0 && (
-            <div className="text-center font-normal">No Items In The Cart</div>
-          )}
-          {Object.keys(cart).map((k) => {
-            return (
-              <li key={k}>
-                <div className="item flex m-auto justify-between items-center bg-indigo-300 rounded-md py-3 px-2 md:w-2/3 md:px-10 mb-3">
-                  <div className="font-normal text-sm md:text-lg">
-                    {cart[k].name +
-                      " " +
-                      cart[k].size +
-                      " " +
-                      cart[k].variant +
-                      " - ₹" +
-                      cart[k].price}
-                  </div>
-                  <div className="mx-2 font-normal text-sm md:text-lg">
-                    {cart[k].qty} Item
-                  </div>
+      {Object.keys(cart).length === 0 && (
+        <div className="text-center font-semibold text-xl py-6">
+          No Items In The Cart
+        </div>
+      )}
+      {Object.keys(cart).length !== 0 && (
+        <div className="flex justify-start flex-col p-4 md:p-10">
+          <div class="flex flex-col">
+            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                  <table class="min-w-full">
+                    <thead class="bg-white border-b">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                        >
+                          #
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                        >
+                          Product Name
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                        >
+                          Quantity
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                        >
+                          Price
+                        </th>
+                        <th
+                          scope="col"
+                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                        >
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.keys(cart).map((k, index) => {
+                        return (
+                          <Link
+                            key={k}
+                            href={`${process.env.NEXT_PUBLIC_HOST}/product/${k}`}
+                          >
+                            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {index + 1}
+                              </td>
+                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap cursor-pointer">
+                                {cart[k].name +
+                                  " " +
+                                  cart[k].size +
+                                  " " +
+                                  cart[k].variant}
+                              </td>
+                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap">
+                                {cart[k].qty}
+                              </td>
+                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap">
+                                {"₹" + cart[k].price}
+                              </td>
+                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap">
+                                {"₹" + cart[k].price * cart[k].qty}
+                              </td>
+                            </tr>
+                          </Link>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
-              </li>
-            );
-          })}
-        </ol>
-        <div className="text-center text-2xl text-indigo-600 mt-10">
-          Subtotal : ₹{subTotal}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center text-2xl text-indigo-600 mt-10">
+            Subtotal : ₹{subTotal}
+          </div>
+          <div className="m-auto mt-10">
+            <button
+              className="bg-indigo-700 px-10 py-4 text-white font-semibold text-xl rounded-md"
+              onClick={payNowHandler}
+            >
+              Pay Now!
+            </button>
+          </div>
         </div>
-        <div className="m-auto mt-10">
-          <button
-            className="bg-indigo-700 px-10 py-4 text-white font-semibold text-xl rounded-md"
-            onClick={payNowHandler}
-          >
-            Pay Now!
-          </button>
-        </div>
-      </div>
+      )}
+
       <ToastContainer />
     </div>
   );
