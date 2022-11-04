@@ -1,18 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, [router]);
   const handlerSubmit = async (e) => {
     e.preventDefault();
     const body = { email, password };
-    let res = await fetch("http://localhost:3000/api/login", {
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +36,7 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
       });
-      router.push("http://localhost:3000/");
+      router.push("/");
     } else {
       toast.error(response.error, {
         position: "bottom-right",
@@ -95,25 +99,6 @@ const Login = () => {
               />
             </div>
             <div className="flex items-center justify-between">
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="remember"
-                    aria-describedby="remember"
-                    type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 light:bg-gray-700 light:border-gray-600 light:focus:ring-primary-600 light:ring-offset-gray-800"
-                    required=""
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label
-                    htmlFor="remember"
-                    className="text-gray-500 light:text-gray-300"
-                  >
-                    Remember me
-                  </label>
-                </div>
-              </div>
               <a
                 href="#"
                 className="text-sm font-medium text-primary-600 hover:underline light:text-primary-500"

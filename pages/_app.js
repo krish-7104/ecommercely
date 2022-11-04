@@ -3,14 +3,22 @@ import { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import "../styles/globals.css";
+import LoadingBar from "react-top-loading-bar";
 
 function MyApp({ Component, pageProps }) {
+  const [progress, setProgress] = useState(0);
   const [cart, setCart] = useState({});
   const [subTotal, setSubTotal] = useState(0);
   const [user, setUser] = useState({ value: null });
-  const [key, setKey] = useState(0);
+  const [key, setKey] = useState();
   const router = useRouter();
   useEffect(() => {
+    router.events.on("routeChangeStart", () => {
+      setProgress(40);
+    });
+    router.events.on("routeChangeComplete", () => {
+      setProgress(100);
+    });
     try {
       if (localStorage.getItem("cart")) {
         setCart(JSON.parse(localStorage.getItem("cart")));
@@ -23,9 +31,9 @@ function MyApp({ Component, pageProps }) {
     const token = localStorage.getItem("token");
     if (token) {
       setUser({ value: token });
-      setKey(Math.random());
     }
-  }, [router.query]);
+    setKey(Math.random());
+  }, [router.events, router.query]);
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
     let newCart = cart;
@@ -42,6 +50,7 @@ function MyApp({ Component, pageProps }) {
     localStorage.removeItem("token");
     setKey(Math.random());
     setUser({ value: null });
+    router.push("/");
   };
 
   const saveCart = (myCart) => {
@@ -79,16 +88,25 @@ function MyApp({ Component, pageProps }) {
   };
   return (
     <>
-      <Navbar
-        key={key}
-        user={user}
-        cart={cart}
-        addToCart={addToCart}
-        removeFromCart={removeFromCart}
-        clearCart={clearCart}
-        subTotal={subTotal}
-        logoutHandler={logoutHandler}
+      <LoadingBar
+        color="#6C58CE"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+        waitingTime={400}
+        height={3}
       />
+      {key && (
+        <Navbar
+          key={key}
+          user={user}
+          cart={cart}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+          clearCart={clearCart}
+          subTotal={subTotal}
+          logoutHandler={logoutHandler}
+        />
+      )}
       <Component
         buyNow={buyNow}
         cart={cart}

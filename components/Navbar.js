@@ -77,22 +77,22 @@ const Navbar = ({
           <div
             onMouseEnter={() => setDropDown(true)}
             onMouseLeave={() => setDropDown(false)}
-            className="absolute right-9 top-6 px-4 py-2 rounded-md w-40 bg-indigo-300 "
+            className="absolute right-9 top-6 px-4 py-2 rounded-md w-40 bg-white shadow-lg"
           >
             <ul>
-              <Link href={"/"}>
-                <li className="text-sm font-semibold py-1 text-gray-700 hover:text-black">
+              <Link href={"/myaccount"}>
+                <li className="text-sm font-semibold py-1 text-gray-600 hover:text-black">
                   My Account
                 </li>
               </Link>
-              <Link href={"/order"}>
-                <li className="text-sm font-semibold py-1 text-gray-700 hover:text-black">
+              <Link href={"/orders"}>
+                <li className="text-sm font-semibold py-1 text-gray-600 hover:text-black">
                   Orders
                 </li>
               </Link>
               <li
                 onClick={logoutHandler}
-                className="text-sm font-semibold py-1 text-gray-700 hover:text-black"
+                className="text-sm font-semibold py-1 text-gray-600 hover:text-black"
               >
                 Logout
               </li>

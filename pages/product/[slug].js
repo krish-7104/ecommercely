@@ -13,7 +13,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
   const [selectedColor, setSelectedColor] = useState(product.color);
 
   const checkServiceAvailability = async () => {
-    let pins = await fetch("http://localhost:3000/api/pincode");
+    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
     let pinJson = await pins.json();
     if (pinJson.includes(parseInt(pin))) {
       toast.success("Your Pincode Is Serviceable", {
@@ -191,6 +191,15 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                 >
                   Add To Cart
                 </button>
+              </div>
+              <div>
+                <p className="text-red-500 font-semibold">
+                  {product.availableQty <= 5
+                    ? "Only " + product.availableQty + " Left"
+                    : product.availableQty >= 10
+                    ? ""
+                    : "Very Few Left"}
+                </p>
               </div>
               <div className="pincode flex flex-col justify-start items-center mt-8 md:flex-row">
                 <input

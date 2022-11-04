@@ -1,47 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React from "react";
-const Order = ({ cart, subTotal }) => {
+import Order from "../models/Order";
+import mongoose from "mongoose";
+const MyOrder = ({ order }) => {
+  console.log(order);
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">
-              EWEAR
+            <h2 className="text-sm text-gray-800 tracking-widest bg-indigo-200 px-3 py-1 mb-2 inline-block font-semibold rounded-sm">
+              {order.status.toUpperCase()}
             </h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">
-              Order Id: #9735875
+              Order Id: {order.orderId}
             </h1>
             <p className="leading-relaxed mb-4">
               You order has been successfully placed. Will be soon reached to
               your place.
             </p>
-            <div class="flex mb-4">
-              <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-left font-bold text-indigo-600">
+            <div className="flex mb-4">
+              <a className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-left font-bold text-indigo-600">
                 Products
               </a>
-              <a class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right font-bold text-indigo-600">
+              <a className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right font-bold text-indigo-600">
                 Total
               </a>
             </div>
-            {Object.keys(cart).map((k) => {
+            {Object.keys(order.products).map((k) => {
               return (
                 <div className="flex border-b border-gray-200 py-2" key={k}>
                   <Link href={`/product/${k}`}>
                     <a>
                       <p className="text-gray-500 text-left">
-                        {cart[k].name}
-                        {/* {cart[k].name.slice(0, 40) + "..."} */}
+                        {order.products[k].name +
+                          " (" +
+                          order.products[k].size +
+                          "/" +
+                          order.products[k].variant +
+                          ")"}
                       </p>
                     </a>
                   </Link>
                   <div className="ml-auto text-gray-900 w-[30%] text-right flex-row">
                     <p className="text-sm">
-                      {cart[k].qty} x {cart[k].price}
+                      {order.products[k].qty} x {order.products[k].price}
                     </p>
                     <p className="font-semibold">
-                      {cart[k].qty * cart[k].price}
+                      {order.products[k].qty * order.products[k].price}
                     </p>
                   </div>
                 </div>
@@ -52,7 +59,7 @@ const Order = ({ cart, subTotal }) => {
                 Track Order
               </button>
               <span className="title-font font-medium text-2xl text-gray-900">
-                Subtotal ₹{subTotal}
+                Subtotal ₹{order.amount}
               </span>
             </div>
           </div>
@@ -67,4 +74,18 @@ const Order = ({ cart, subTotal }) => {
   );
 };
 
-export default Order;
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    mongoose.connect(process.env.MONGO_URI);
+  }
+  let order = await Order.findById(context.query.id);
+  console.log(order);
+
+  return {
+    props: {
+      order: JSON.parse(JSON.stringify(order)),
+    },
+  };
+}
+
+export default MyOrder;

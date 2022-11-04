@@ -9,7 +9,7 @@ const handler = async (req, res) => {
       email,
       password: CryptoJS.AES.encrypt(
         req.body.password,
-        "hiecommercely"
+        process.env.AES_SECRET
       ).toString(),
     });
     await u.save();

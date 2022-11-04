@@ -10,13 +10,13 @@ const handler = async (req, res) => {
       if (
         req.body.email === user.email &&
         req.body.password ===
-          CryptoJS.AES.decrypt(user.password, "hiecommercely").toString(
+          CryptoJS.AES.decrypt(user.password, process.env.AES_SECRET).toString(
             CryptoJS.enc.Utf8
           )
       ) {
         var token = jwt.sign(
           { email: user.email, name: user.name },
-          "hiecommercely",
+          process.env.SECRET_JWT,
           { expiresIn: "2d" }
         );
         res.status(200).json({
