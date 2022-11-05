@@ -19,20 +19,20 @@ const Navbar = ({
 }) => {
   const ref = useRef();
   const [dropdown, setDropDown] = useState(false);
+  const [sideBar, setSideBar] = useState(false);
+
   const router = useRouter();
 
   const toggleCart = () => {
-    if (ref.current.classList.contains("hidden")) {
-      ref.current.classList.remove("hidden");
-      ref.current.classList.add("block");
-    } else if (!ref.current.classList.contains("hidden")) {
-      ref.current.classList.add("hidden");
-      ref.current.classList.remove("block");
-    }
+    setSideBar(!sideBar);
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 bg-white z-10">
+    <div
+      className={`flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 bg-white z-10 ${
+        !sideBar && "overflow-hidden"
+      }`}
+    >
       <div className="logo ml-5 mr-auto md:mr-5 md:mt-0 mt-2">
         <Link href={"/"}>
           <a>
@@ -117,15 +117,10 @@ const Navbar = ({
           <HiShoppingCart className="text-xl md:text-2xl flex justify-center align-middle  text-indigo-600 hover:text-indigo-500" />
         </div>
       </div>
-      {/* <div
-        className={`sidecart absolute top-0 right-0 bg-indigo-200 p-10 text-indigo-800 transition-transform ${
-          Object.keys(cart).length !== 0 ? "block" : "hidden"
-        } rounded-md z-10 w-80 h-[100vh] flex justify-start flex-col`}
-        ref={ref}
-      > */}
       <div
-        className="sidecart absolute top-0 right-0 bg-indigo-200 p-10 text-indigo-800 transition-transform hidden rounded-md z-10 w-80 h-[100vh] justify-start flex-col"
-        ref={ref}
+        className={`sidecart absolute top-0 bg-indigo-200 p-10 text-indigo-800 transition-all w-96 rounded-md z-20 h-[100vh] justify-start flex-col ${
+          sideBar ? "right-0" : "-right-96"
+        }`}
       >
         <h2 className="font-bold text-xl mb-4">Shopping Cart</h2>
         <span

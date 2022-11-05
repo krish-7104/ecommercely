@@ -44,16 +44,18 @@ function MyApp({ Component, pageProps }) {
   }, [router.events, router.query, user.value]);
 
   const getCart = async () => {
-    let body = { user: localStorage.getItem("token").slice(0, 36) };
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getcart`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    let response = await res.json();
-    response.length !== 0 && setCart(response[0].products);
+    if (localStorage.getItem("token")) {
+      let body = { user: localStorage.getItem("token").slice(0, 36) };
+      let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getcart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      let response = await res.json();
+      response.length !== 0 && setCart(response[0].products);
+    }
   };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {

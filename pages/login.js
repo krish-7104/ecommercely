@@ -26,7 +26,7 @@ const Login = ({ getCart }) => {
     let response = await res.json();
     if (response.success) {
       localStorage.setItem("token", response.token);
-      toast.success("Account Created Successfully!", {
+      toast.success("Login Successfully!", {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
