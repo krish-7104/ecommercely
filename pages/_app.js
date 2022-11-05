@@ -82,6 +82,7 @@ function MyApp({ Component, pageProps }) {
     setKey(Math.random());
     setUser({ value: null });
     router.push("/");
+    setCart({});
   };
 
   const saveCart = async (myCart) => {

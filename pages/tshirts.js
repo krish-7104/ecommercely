@@ -15,7 +15,7 @@ const Tshirts = ({ products }) => {
     );
   } else
     return (
-      <section className="text-gray-600 body-font">
+      <section className="text-gray-600 body-font min-h-[100vh]">
         <div className="container px-5 py-10 mx-auto">
           <div className="flex flex-wrap -m-4 justify-center">
             {Object.keys(products).map((item) => {
@@ -50,15 +50,6 @@ const Tshirts = ({ products }) => {
                         {products[item].title}
                       </h2>
                       <p className="mt-1">₹{products[item].price}</p>
-                      {/* <div className="mt-2">
-                      {products[item].size.map((size) => {
-                        return (
-                          <span key={size} className="mr-2">
-                            {size}
-                          </span>
-                        );
-                      })}
-                    </div> */}
                     </div>
                   </motion.div>
                 </Link>

@@ -29,8 +29,8 @@ const Navbar = ({
 
   return (
     <div
-      className={`flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 bg-white z-10 ${
-        !sideBar && "overflow-hidden"
+      className={`flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 bg-white ${
+        !sideBar && "overflowx-hidden"
       }`}
     >
       <div className="logo ml-5 mr-auto md:mr-5 md:mt-0 mt-2">
@@ -118,7 +118,7 @@ const Navbar = ({
         </div>
       </div>
       <div
-        className={`sidecart absolute top-0 bg-indigo-200 p-10 text-indigo-800 transition-all w-96 rounded-md z-20 h-[100vh] justify-start flex-col ${
+        className={`sidecart absolute top-0 bg-indigo-200 p-10 text-indigo-800 transition-all w-96 rounded-md z-10 h-[100vh] justify-start flex-col ${
           sideBar ? "right-0" : "-right-96"
         }`}
       >
