@@ -6,7 +6,9 @@ const handler = async (req, res) => {
     let cart = await Cart.findOneAndDelete({ user: req.body.user });
     res.status(200).json({ success: true, message: "cart deleted" });
   } else {
-    res.status(400).json({ error: "This method is not allowed!" });
+    res
+      .status(400)
+      .json({ success: false, error: "This method is not allowed!" });
   }
 };
 

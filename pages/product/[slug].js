@@ -187,30 +187,38 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                 )}
               </div>
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">
-                  ₹{product.price}
-                </span>
+                {product.availableQty !== 0 ? (
+                  <span className="title-font font-medium text-2xl text-gray-900">
+                    ₹{product.price}
+                  </span>
+                ) : (
+                  <p className="text-red-500 font-semibold text-xl">
+                    Out of Stock
+                  </p>
+                )}
                 <button
-                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  disabled={product.availableQty === 0 ? true : false}
+                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded disabled:bg-indigo-400"
                   onClick={buynowHandler}
                 >
                   Buy Now
                 </button>
                 <button
-                  className="flex ml-5 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  disabled={product.availableQty === 0 ? true : false}
+                  className="flex ml-5 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded disabled:bg-indigo-400"
                   onClick={addtoCartHandler}
                 >
                   Add To Cart
                 </button>
               </div>
               <div>
-                <p className="text-red-500 font-semibold">
-                  {product.availableQty <= 5
-                    ? "Only " + product.availableQty + " Left"
-                    : product.availableQty >= 10
-                    ? ""
-                    : "Very Few Left"}
-                </p>
+                {product.availableQty <= 5 && product.availableQty > 0 ? (
+                  <p className="text-red-500 font-semibold text-xl">
+                    Only {product.availableQty} Left
+                  </p>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="pincode flex flex-col justify-start items-center mt-8 md:flex-row">
                 <input

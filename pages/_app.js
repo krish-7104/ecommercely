@@ -4,6 +4,8 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import "../styles/globals.css";
 import LoadingBar from "react-top-loading-bar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }) {
   const [progress, setProgress] = useState(0);
@@ -12,6 +14,20 @@ function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState({ value: null });
   const [key, setKey] = useState();
   const router = useRouter();
+
+  const updateQuantityCart = async (slug, type, amount) => {
+    let body = { slug, type, amount };
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/changeqty`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    let response = await res.json();
+    getCart();
+  };
+
   useEffect(() => {
     router.events.on("routeChangeStart", () => {
       setProgress(40);
@@ -36,11 +52,12 @@ function MyApp({ Component, pageProps }) {
       body: JSON.stringify(body),
     });
     let response = await res.json();
-    console.log(response);
+
     response.length !== 0 && setCart(response[0].products);
   };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
+    updateQuantityCart(itemCode, "add", 1);
     let newCart;
     if (cart === undefined) {
       newCart = {};
@@ -75,6 +92,18 @@ function MyApp({ Component, pageProps }) {
         body: JSON.stringify(body),
       });
       let response = await res.json();
+      if (response.success === false) {
+        toast.error("Something Went Wrong!", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     } else {
       let body = { user: user.value.slice(0, 36), products: myCart };
       let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/savecart`, {
@@ -85,13 +114,39 @@ function MyApp({ Component, pageProps }) {
         body: JSON.stringify(body),
       });
       let response = await res.json();
+      if (response.success === false) {
+        toast.error("Something Went Wrong!", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     }
     setKey(Math.random());
   };
 
   const clearCart = () => {
+    console.log(cart);
+    Object.keys(cart).forEach((item) => {
+      updateQuantityCart(item, "remove", cart[item].qty);
+    });
     setCart({});
     saveCart({});
+    toast("Cart Cleared Successfully!", {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
   const buyNow = (itemCode, qty, price, name, size, variant) => {
@@ -102,6 +157,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   const removeFromCart = (itemCode, qty) => {
+    updateQuantityCart(itemCode, "remove", 1);
     let newCart = cart;
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty - qty;
@@ -144,6 +200,7 @@ function MyApp({ Component, pageProps }) {
         getCart={getCart}
         {...pageProps}
       />
+      <ToastContainer />
       <Footer />
     </>
   );
