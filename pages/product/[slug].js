@@ -53,6 +53,35 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
     router.push(link);
   };
 
+  const addtoCartHandler = () => {
+    if (localStorage.getItem("token")) {
+      addToCart(
+        slug,
+        1,
+        product.price,
+        product.title,
+        product.size,
+        product.color
+      );
+    } else {
+      router.push("/login");
+    }
+  };
+  const buynowHandler = () => {
+    if (localStorage.getItem("token")) {
+      buyNow(
+        slug,
+        1,
+        product.price,
+        product.title,
+        product.size,
+        product.color
+      );
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <>
       <section className="text-gray-600 body-font overflow-hidden">
@@ -163,31 +192,13 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                 </span>
                 <button
                   className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-                  onClick={() => {
-                    buyNow(
-                      slug,
-                      1,
-                      product.price,
-                      product.title,
-                      product.size,
-                      product.color
-                    );
-                  }}
+                  onClick={buynowHandler}
                 >
                   Buy Now
                 </button>
                 <button
                   className="flex ml-5 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-                  onClick={() => {
-                    addToCart(
-                      slug,
-                      1,
-                      product.price,
-                      product.title,
-                      product.size,
-                      product.color
-                    );
-                  }}
+                  onClick={addtoCartHandler}
                 >
                   Add To Cart
                 </button>

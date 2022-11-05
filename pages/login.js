@@ -37,7 +37,7 @@ const Login = ({ getCart }) => {
         theme: "dark",
       });
       getCart();
-      router.push("/");
+      router.back();
     } else {
       toast.error(response.error, {
         position: "bottom-right",
