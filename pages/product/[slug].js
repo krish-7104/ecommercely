@@ -63,6 +63,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
         product.size,
         product.color
       );
+      router.replace(router.asPath);
     } else {
       router.push("/login");
     }

@@ -39,6 +39,7 @@ function MyApp({ Component, pageProps }) {
     if (token) {
       setUser({ value: token });
     }
+    getCart();
     setKey(Math.random());
   }, [router.events, router.query, user.value]);
 
@@ -52,11 +53,11 @@ function MyApp({ Component, pageProps }) {
       body: JSON.stringify(body),
     });
     let response = await res.json();
-
     response.length !== 0 && setCart(response[0].products);
   };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
+    router.replace(router.asPath);
     updateQuantityCart(itemCode, "add", 1);
     let newCart;
     if (cart === undefined) {
@@ -131,7 +132,6 @@ function MyApp({ Component, pageProps }) {
   };
 
   const clearCart = () => {
-    console.log(cart);
     Object.keys(cart).forEach((item) => {
       updateQuantityCart(item, "remove", cart[item].qty);
     });
@@ -147,16 +147,19 @@ function MyApp({ Component, pageProps }) {
       progress: undefined,
       theme: "dark",
     });
+    router.replace(router.asPath);
   };
 
   const buyNow = (itemCode, qty, price, name, size, variant) => {
-    let newCart = { itemCode: { qty: 1, price, name, size, variant } };
+    let newCart = { [itemCode]: { qty: 1, price, name, size, variant } };
+    updateQuantityCart(itemCode, "add", qty);
     setCart(newCart);
     saveCart(newCart);
     router.push("/checkout");
   };
 
   const removeFromCart = (itemCode, qty) => {
+    router.replace(router.asPath);
     updateQuantityCart(itemCode, "remove", 1);
     let newCart = cart;
     if (itemCode in cart) {
