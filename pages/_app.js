@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }) {
     router.events.on("routeChangeComplete", () => {
       setProgress(100);
     });
-    getCart();
     const token = localStorage.getItem("token");
     if (token) {
       setUser({ value: token });
@@ -28,7 +27,7 @@ function MyApp({ Component, pageProps }) {
   }, [router.events, router.query, user.value]);
 
   const getCart = async () => {
-    let body = { user: user.value };
+    let body = { user: localStorage.getItem("token").slice(0, 36) };
     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getcart`, {
       method: "POST",
       headers: {
@@ -37,6 +36,7 @@ function MyApp({ Component, pageProps }) {
       body: JSON.stringify(body),
     });
     let response = await res.json();
+    console.log(response);
     response.length !== 0 && setCart(response[0].products);
   };
 
@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps }) {
         newCart[itemCode] = { qty: 1, price, name, size, variant };
       }
     }
-
     setCart(newCart);
     saveCart(newCart);
   };
@@ -66,7 +65,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   const saveCart = async (myCart) => {
-    let body = { user: user.value, products: myCart };
+    let body = { user: user.value.slice(0, 36), products: myCart };
     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/savecart`, {
       method: "POST",
       headers: {
