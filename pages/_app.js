@@ -65,15 +65,27 @@ function MyApp({ Component, pageProps }) {
   };
 
   const saveCart = async (myCart) => {
-    let body = { user: user.value.slice(0, 36), products: myCart };
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/savecart`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    let response = await res.json();
+    if (Object.keys(myCart).length === 0) {
+      let body = { user: user.value.slice(0, 36) };
+      let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/deletecart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      let response = await res.json();
+    } else {
+      let body = { user: user.value.slice(0, 36), products: myCart };
+      let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/savecart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      let response = await res.json();
+    }
     setKey(Math.random());
   };
 

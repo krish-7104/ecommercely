@@ -135,11 +135,10 @@ const Navbar = ({
           <AiOutlineClose />
         </span>
         <ol>
-          {console.log(cart)}
-          {cart === undefined && (
+          {cart && (
             <div className="text-center font-normal">No Items In The Cart</div>
           )}
-          {cart !== undefined &&
+          {cart &&
             Object.keys(cart).map((k) => {
               return (
                 <li key={k}>
@@ -189,22 +188,26 @@ const Navbar = ({
               );
             })}
         </ol>
-        <div className="text-center text-md text-indigo-600 mt-10">
-          Subtotal : ₹{subTotal}
-        </div>
-        <div className="btns flex justify-center align-middle mt-5">
-          <Link href="/checkout">
-            <button className="text-white bg-indigo-700 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded mx-auto">
-              Checkout
-            </button>
-          </Link>
-          <button
-            className="border-2 border-indigo-700 text-indigo-700 py-2 px-4 focus:outline-none hover:bg-indigo-700 hover:text-white rounded mx-auto"
-            onClick={clearCart}
-          >
-            Clear Cart
-          </button>
-        </div>
+        {cart && (
+          <>
+            <div className="text-center text-md text-indigo-600 mt-10">
+              Subtotal : ₹{subTotal}
+            </div>
+            <div className="btns flex justify-center align-middle mt-5">
+              <Link href="/checkout">
+                <button className="text-white bg-indigo-700 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded mx-auto">
+                  Checkout
+                </button>
+              </Link>
+              <button
+                className="border-2 border-indigo-700 text-indigo-700 py-2 px-4 focus:outline-none hover:bg-indigo-700 hover:text-white rounded mx-auto"
+                onClick={clearCart}
+              >
+                Clear Cart
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
