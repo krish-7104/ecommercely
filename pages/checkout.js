@@ -47,7 +47,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
           });
           let response = await res.json();
           router.push(`/order/?id=${response.orderId}`);
-          clearCart();
+          cart = {};
         } else {
           toast.error("Pincode Is Not Serviceable!", {
             position: "bottom-right",

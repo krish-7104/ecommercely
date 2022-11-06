@@ -78,8 +78,6 @@ export async function getServerSideProps(context) {
     mongoose.connect(process.env.MONGO_URI);
   }
   let order = await Order.findById(context.query.id);
-  console.log(order);
-
   return {
     props: {
       order: JSON.parse(JSON.stringify(order)),
