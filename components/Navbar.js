@@ -30,7 +30,7 @@ const Navbar = ({
   return (
     <div
       className={`flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 bg-white ${
-        !sideBar && "overflowx-hidden"
+        !sideBar && "overflow-x-hidden"
       }`}
     >
       <div className="logo ml-5 mr-auto md:mr-5 md:mt-0 mt-2">
