@@ -111,21 +111,14 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                       <select
                         className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
                         onChange={colorChangeHandler}
+                        defaultValue={selectedColor}
                       >
                         {Object.keys(variants).map((color) => {
-                          if (selectedColor === color) {
-                            return (
-                              <option selected key={color} value={color}>
-                                {color}
-                              </option>
-                            );
-                          } else {
-                            return (
-                              <option key={color} value={color}>
-                                {color}
-                              </option>
-                            );
-                          }
+                          return (
+                            <option key={color} value={color}>
+                              {color}
+                            </option>
+                          );
                         })}
                       </select>
                       <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
@@ -153,21 +146,14 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                       <select
                         className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
                         onChange={sizeChangeHandler}
+                        defaultValue={selectedSize}
                       >
                         {Object.keys(variants[selectedColor]).map((size) => {
-                          if (selectedSize === size) {
-                            return (
-                              <option selected key={size} value={size}>
-                                {size}
-                              </option>
-                            );
-                          } else {
-                            return (
-                              <option key={size} value={size}>
-                                {size}
-                              </option>
-                            );
-                          }
+                          return (
+                            <option key={size} value={size}>
+                              {size}
+                            </option>
+                          );
                         })}
                       </select>
                       <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
@@ -214,7 +200,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               </div>
               <div>
                 {product.availableQty <= 5 && product.availableQty > 0 ? (
-                  <p className="text-red-500 font-semibold text-xl">
+                  <p className="text-red-500 font-semibold text-xl mt-2">
                     Only {product.availableQty} Left
                   </p>
                 ) : (
