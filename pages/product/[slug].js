@@ -8,37 +8,37 @@ import "react-toastify/dist/ReactToastify.css";
 const Post = ({ addToCart, product, variants, buyNow }) => {
   const router = useRouter();
   const { slug } = router.query;
-  const [pin, setPin] = useState();
+  // const [pin, setPin] = useState();
   const [selectedSize, setSelectedSize] = useState(product.size);
   const [selectedColor, setSelectedColor] = useState(product.color);
 
-  const checkServiceAvailability = async () => {
-    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
-    let pinJson = await pins.json();
-    if (pinJson.includes(parseInt(pin))) {
-      toast.success("Your Pincode Is Serviceable", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    } else {
-      toast.error("Sorry, Pincode Not Serviceable", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    }
-  };
+  // const checkServiceAvailability = async () => {
+  //   let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
+  //   let pinJson = await pins.json();
+  //   if (pinJson.includes(parseInt(pin))) {
+  //     toast.success("Your Pincode Is Serviceable", {
+  //       position: "bottom-right",
+  //       autoClose: 3000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "dark",
+  //     });
+  //   } else {
+  //     toast.error("Sorry, Pincode Not Serviceable", {
+  //       position: "bottom-right",
+  //       autoClose: 3000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "dark",
+  //     });
+  //   }
+  // };
 
   const colorChangeHandler = (e) => {
     setSelectedColor(e.target.value);
@@ -84,7 +84,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
 
   return (
     <>
-      <section className="text-gray-600 body-font overflow-hidden">
+      <section className="text-gray-600 body-font overflow-hidden bg-gray-900">
         <div className="container px-5 py-16 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img
@@ -93,22 +93,22 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               src={product.img}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 className="text-sm title-font text-indigo-500 tracking-widest font-bold">
+              <h2 className="text-sm title-font text-emerald-500 tracking-widest font-bold">
                 {product.category.toUpperCase()}
               </h2>
-              <h1 className="text-gray-900 text-3xl title-font font-medium my-2">
+              <h1 className="text-gray-100 text-3xl title-font font-medium my-2">
                 {product.title}
               </h1>
               <p className="leading-relaxed">{product.desc}</p>
-              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 justify-evenly">
                 {variants && (
                   <div className="flex ml-6 items-center">
-                    <span className="mr-3 text-indigo-500 font-semibold">
+                    <span className="mr-3 text-emerald-500 font-semibold">
                       Color
                     </span>
                     <div className="relative">
                       <select
-                        className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none text-base pl-3 pr-10"
                         onChange={colorChangeHandler}
                         defaultValue={selectedColor}
                       >
@@ -138,12 +138,12 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                 )}
                 {product.size && (
                   <div className="flex ml-6 items-center">
-                    <span className="mr-3 text-indigo-500 font-semibold">
+                    <span className="mr-3 text-emerald-500 font-semibold">
                       Size
                     </span>
                     <div className="relative">
                       <select
-                        className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none text-base pl-3 pr-10"
                         onChange={sizeChangeHandler}
                         defaultValue={selectedSize}
                       >
@@ -174,24 +174,24 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               </div>
               <div className="flex">
                 {product.availableQty !== 0 ? (
-                  <span className="title-font font-medium text-2xl text-gray-900">
+                  <span className="title-font font-medium text-3xl ml-4 text-gray-100">
                     ₹{product.price}
                   </span>
                 ) : (
-                  <p className="text-red-500 font-semibold text-xl">
+                  <p className="text-red-400 font-semibold text-xl">
                     Out of Stock
                   </p>
                 )}
                 <button
                   disabled={product.availableQty === 0 ? true : false}
-                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded disabled:bg-indigo-400"
+                  className="flex ml-auto text-white bg-emerald-700 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400"
                   onClick={buynowHandler}
                 >
                   Buy Now
                 </button>
                 <button
                   disabled={product.availableQty === 0 ? true : false}
-                  className="flex ml-5 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded disabled:bg-indigo-400"
+                  className="flex ml-5 text-white bg-emerald-700 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400"
                   onClick={addtoCartHandler}
                 >
                   Add To Cart
@@ -206,23 +206,24 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                   ""
                 )}
               </div>
-              <div className="pincode flex flex-col justify-start items-center mt-8 md:flex-row">
+              {/* <div className="pincode flex flex-col justify-start items-center mt-8 md:flex-row">
                 <input
                   type="number"
                   name="pincode"
                   id="pincode"
-                  className="border-2 border-slate-400 p-2 rounded-md w-auto"
+                  autoComplete="off"
+                  className="bg-gray-700 p-2 rounded-md w-auto focus:outline-none text-gray-100"
                   value={pin}
                   placeholder="Enter Pincode"
                   onChange={(e) => setPin(e.target.value)}
                 />
                 <button
-                  className="flex text-white bg-indigo-500 border-2 border-indigo-500 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded ml-0 mt-2 md:ml-2 md:mt-0"
+                  className="flex text-white bg-emerald-700 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded ml-0 mt-2 md:ml-2 md:mt-0"
                   onClick={checkServiceAvailability}
                 >
                   Check
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

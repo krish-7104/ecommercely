@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Forget = () => {
   const [email, setEmail] = useState();
   return (
-    <div className="flex flex-col items-center justify-start mx-auto md:h-screen mt-52">
+    <div className="flex flex-col items-center justify-start mx-auto md:h-screen mt-52 ">
       <div className="w-full  rounded-lg shadow-xl md:mt-0 sm:max-w-md xl:p-0 light:bg-gray-800 light:border-gray-700">
         <div className=" space-y-4 md:space-y-6 sm:p-8">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl light:text-white">

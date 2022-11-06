@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
+/* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
-
 export default function Home() {
   return (
     <div>
@@ -8,128 +9,172 @@ export default function Home() {
         <meta name="description" content="A E-Commerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="text-gray-600 body-font">
+      <section className="text-gray-600 body-font bg-gray-900">
         <div className="container px-5 py-24 mx-auto">
-          <div className="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
-            <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="sm:w-16 sm:h-16 w-10 h-10"
-                viewBox="0 0 24 24"
-              >
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-              </svg>
+          <div className="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row-reverse flex-col">
+            <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-emerald-100 text-emerald-500 flex-shrink-0">
+              <img
+                src="https://www.svgrepo.com/show/277103/hoodie.svg"
+                alt=""
+                height="70"
+                width="70"
+              />
             </div>
             <div className="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-              <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                Shooting Stars
+              <h2 className="text-emerald-400 text-lg title-font font-medium mb-2">
+                T Shirts
               </h2>
               <p className="leading-relaxed text-base">
-                Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-                taxidermy. Gastropub indxgo juice poutine.
+                Premium, Branded, Full Sleeves, Half Sleeves, Polo, 100% Fabric
+                Tshirts At The Most Affordable Price
               </p>
-              <a className="mt-3 text-indigo-500 inline-flex items-center">
-                Learn More
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-4 h-4 ml-2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
+              <a
+                href="/products?type=tshirts"
+                className="mt-3 text-emerald-500 inline-flex items-center cursor-pointer hover:text-emerald-300"
+              >
+                <p className="mr-2">Shop Now</p>
+                <span className="mt-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                </span>
               </a>
             </div>
           </div>
           <div className="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
-            <div className="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-              <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                The Catalyzer
-              </h2>
-              <p className="leading-relaxed text-base">
-                Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-                taxidermy. Gastropub indxgo juice poutine.
-              </p>
-              <a className="mt-3 text-indigo-500 inline-flex items-center">
-                Learn More
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-4 h-4 ml-2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-              </a>
-            </div>
-            <div className="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:ml-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="sm:w-16 sm:h-16 w-10 h-10"
-                viewBox="0 0 24 24"
-              >
-                <circle cx="6" cy="6" r="3"></circle>
-                <circle cx="6" cy="18" r="3"></circle>
-                <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-              </svg>
-            </div>
-          </div>
-          <div className="flex items-center lg:w-3/5 mx-auto sm:flex-row flex-col">
-            <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="sm:w-16 sm:h-16 w-10 h-10"
-                viewBox="0 0 24 24"
-              >
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
+            <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-emerald-100 text-emerald-500 flex-shrink-0">
+              <img
+                src="https://www.svgrepo.com/show/277103/hoodie.svg"
+                alt=""
+                height="70"
+                width="70"
+              />
             </div>
             <div className="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-              <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
-                The 400 Blows
+              <h2 className="text-emerald-400 text-lg title-font font-medium mb-2">
+                Hoddies
               </h2>
               <p className="leading-relaxed text-base">
-                Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-                taxidermy. Gastropub indxgo juice poutine.
+                Winter Is Coming, Premium, Branded, Comfortable Hoddies At The
+                Most Affordable Price
               </p>
-              <a className="mt-3 text-indigo-500 inline-flex items-center">
-                Learn More
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-4 h-4 ml-2"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
+              <a
+                href="/products?type=hoddies"
+                className="mt-3 text-emerald-500 inline-flex items-center cursor-pointer hover:text-emerald-300"
+              >
+                <p className="mr-2">Shop Now</p>
+                <span className="mt-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                </span>
               </a>
             </div>
           </div>
-          <button className="flex mx-auto mt-20 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-            Button
-          </button>
+          <div className="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row-reverse flex-col">
+            <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-emerald-100 text-emerald-500 flex-shrink-0">
+              <img
+                src="https://www.svgrepo.com/show/277103/hoodie.svg"
+                alt=""
+                height="70"
+                width="70"
+              />
+            </div>
+            <div className="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 className="text-emerald-400 text-lg title-font font-medium mb-2">
+                Shirts
+              </h2>
+              <p className="leading-relaxed text-base">
+                Premium, Branded, 100% Fabric Shirts At The Most Affordable
+                Price. Shirts That Makes You Feel Better.
+              </p>
+              <a
+                href="/products?type=shirts"
+                className="mt-3 text-emerald-500 inline-flex items-center cursor-pointer hover:text-emerald-300"
+              >
+                <p className="mr-2">Shop Now</p>
+                <span className="mt-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div className="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-emerald-100 text-emerald-500 flex-shrink-0">
+              <img
+                src="https://www.svgrepo.com/show/277103/hoodie.svg"
+                alt=""
+                height="70"
+                width="70"
+              />
+            </div>
+            <div className="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+              <h2 className="text-emerald-400 text-lg title-font font-medium mb-2">
+                Jeans
+              </h2>
+              <p className="leading-relaxed text-base">
+                Premium, Branded, 100% Fabric Tshirts At The Most Affordable
+                Price
+              </p>
+              <a
+                href="/products?type=jeans"
+                className="mt-3 text-emerald-500 inline-flex items-center cursor-pointer hover:text-emerald-300"
+              >
+                <p className="mr-2">Shop Now</p>
+                <span className="mt-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </div>
