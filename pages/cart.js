@@ -154,7 +154,10 @@ const Cart = ({ cart, subTotal, clearCart, addToCart, removeFromCart }) => {
                       >
                         Clear Cart
                       </button>
-                      <button className="bg-emerald-600 px-4 py-2 rounded-md text-gray-200 hover:bg-emerald-500">
+                      <button
+                        className="bg-emerald-600 px-4 py-2 rounded-md text-gray-200 hover:bg-emerald-500"
+                        onClick={() => router.push("/checkout")}
+                      >
                         Checkout
                       </button>
                     </div>

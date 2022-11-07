@@ -59,7 +59,6 @@ function MyApp({ Component, pageProps }) {
   };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
-    router.replace(router.asPath);
     updateQuantityCart(itemCode, "add", 1);
     let newCart;
     if (cart === undefined) {
@@ -86,6 +85,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   const saveCart = async (myCart) => {
+    console.log(myCart);
     if (Object.keys(myCart).length === 0) {
       let body = { user: user.value.slice(0, 36) };
       let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/deletecart`, {
