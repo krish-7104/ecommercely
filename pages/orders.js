@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Order from "../models/Order";
 import mongoose from "mongoose";
+import Link from "next/link";
 const Orders = ({ allOrders }) => {
   const router = useRouter();
   useEffect(() => {
@@ -47,17 +48,19 @@ const Orders = ({ allOrders }) => {
               {Object.keys(order.products).map((product, index) => {
                 return (
                   <div key={product} className="flex w-full my-2">
-                    <p className="text-gray-100 text-md w-3/4 md:text-lg">
-                      <span className="text-emerald-500">
-                        {index + 1 + ". "}
-                      </span>{" "}
-                      {order.products[product].name}
-                      {" ("}
-                      {order.products[product].variant}
-                      {"/"}
-                      {order.products[product].size}
-                      {")"}
-                    </p>
+                    <Link href={`order?id=${order._id}`}>
+                      <p className="text-gray-100 text-md w-3/4 md:text-lg cursor-pointer">
+                        <span className="text-emerald-500">
+                          {index + 1 + ". "}
+                        </span>{" "}
+                        {order.products[product].name}
+                        {" ("}
+                        {order.products[product].variant}
+                        {"/"}
+                        {order.products[product].size}
+                        {")"}
+                      </p>
+                    </Link>
                     <p className="text-gray-100 text-md w-1/4 text-center md:text-lg">
                       {order.products[product].qty} x
                       <span className="text-emerald-500">

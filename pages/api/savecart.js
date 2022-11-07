@@ -11,6 +11,7 @@ const handler = async (req, res) => {
       let newCart = new Cart({
         user: req.body.user,
         products: req.body.products,
+        subTotal: req.body.subTotal,
       });
       await newCart.save();
       res.status(200).json({ success: true, message: "cart created" });

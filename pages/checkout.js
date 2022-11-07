@@ -15,7 +15,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
 
   const payNowHandler = async () => {
     if (Object.keys(cart).length === 0) {
-      toast.warn("Card Is Empty!", {
+      toast.warn("Cart Is Empty!", {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -27,39 +27,39 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
       });
     } else {
       if (name && email && phone && state && city && pincode && address) {
-        let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
-        let pinJson = await pins.json();
-        if (pinJson.includes(parseInt(pincode))) {
-          let id = (Date.now() * 10 * Math.random()).toString().slice(0, 10);
-          const body = {
-            email,
-            address: [address, state, city, pincode],
-            amount: subTotal,
-            orderId: parseInt(id),
-            products: cart,
-          };
-          let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/order`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-          });
-          let response = await res.json();
-          router.push(`/order/?id=${response.orderId}`);
-          cart = {};
-        } else {
-          toast.error("Pincode Is Not Serviceable!", {
-            position: "bottom-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
+        // let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
+        // let pinJson = await pins.json();
+        // if (pinJson.includes(parseInt(pincode))) {
+        let id = (Date.now() * 10 * Math.random()).toString().slice(0, 10);
+        const body = {
+          email,
+          address: [address, state, city, pincode],
+          amount: subTotal,
+          orderId: parseInt(id),
+          products: cart,
+        };
+        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/order`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+        let response = await res.json();
+        router.push(`/order/?id=${response.orderId}`);
+        clearCart();
+        // } else {
+        //   toast.error("Pincode Is Not Serviceable!", {
+        //     position: "bottom-right",
+        //     autoClose: 3000,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "dark",
+        //   });
+        // }
       } else {
         toast.error("Fill All The Details!", {
           position: "bottom-right",
@@ -77,20 +77,22 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
 
   const ref = useRef();
   return (
-    <div className="container m-auto">
-      <h1 className="font-bold text-5xl my-10 text-center">Checkout</h1>
-      <h2 className="font-bold text-2xl my-4 text-center text-indigo-700">
+    <div className="container m-auto bg-gray-900">
+      <h1 className="font-bold text-5xl py-5 text-center text-white">
+        Checkout
+      </h1>
+      <h2 className="font-bold text-2xl my-4 text-center text-emerald-700">
         Delivery Details
       </h2>
-      <section className="text-gray-600 body-font relative">
-        <div className="container px-5 py-24 mx-auto">
+      <section className="text-gray-300 body-font relative">
+        <div className="container px-5 py-6 mx-auto">
           <div className="lg:w-1/2 md:w-2/3 mx-auto">
             <div className="flex flex-wrap -m-2">
               <div className="p-2 w-1/2">
                 <div className="relative">
                   <label
                     htmlFor="name"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-300"
                   >
                     Name
                   </label>
@@ -100,7 +102,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                     type="text"
                     id="name"
                     name="name"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-gray-800 bg-opacity-50 rounded text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
               </div>
@@ -108,7 +110,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                 <div className="relative">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-300"
                   >
                     Email
                   </label>
@@ -118,7 +120,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                     type="email"
                     id="email"
                     name="email"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-gray-800 bg-opacity-50 rounded text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
               </div>
@@ -126,7 +128,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                 <div className="relative">
                   <label
                     htmlFor="phone"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-300"
                   >
                     Phone No
                   </label>
@@ -136,7 +138,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                     type="number"
                     id="phone"
                     name="phone"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-gray-800 bg-opacity-50 rounded text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
               </div>
@@ -144,7 +146,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                 <div className="relative">
                   <label
                     htmlFor="pincode"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-300"
                   >
                     Pincode
                   </label>
@@ -154,7 +156,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                     type="number"
                     id="pincode"
                     name="pincode"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-gray-800 bg-opacity-50 rounded text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
               </div>
@@ -162,7 +164,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                 <div className="relative">
                   <label
                     htmlFor="state"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-300"
                   >
                     State
                   </label>
@@ -172,7 +174,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                     type="text"
                     id="state"
                     name="state"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-gray-800 bg-opacity-50 rounded text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
               </div>
@@ -180,7 +182,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                 <div className="relative">
                   <label
                     htmlFor="city"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-300"
                   >
                     City
                   </label>
@@ -190,7 +192,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                     type="text"
                     id="city"
                     name="city"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-gray-800 bg-opacity-50 rounded text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
               </div>
@@ -199,7 +201,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                 <div className="relative">
                   <label
                     htmlFor="address"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-300"
                   >
                     Address
                   </label>
@@ -208,7 +210,7 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                     onChange={(e) => setAddress(e.target.value)}
                     id="address"
                     name="address"
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-gray-800 bg-opacity-50 rounded h-32 text-base outline-none py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                   ></textarea>
                 </div>
               </div>
@@ -217,14 +219,9 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
         </div>
       </section>
 
-      <h2 className="font-bold text-2xl my-4 text-center text-indigo-700">
+      <h2 className="font-bold text-2xl my-4 text-center text-emerald-700">
         Review Cart Items
       </h2>
-      {Object.keys(cart).length === 0 && (
-        <div className="text-center font-semibold text-xl py-6">
-          No Items In The Cart
-        </div>
-      )}
       {Object.keys(cart).length !== 0 && (
         <div className="flex justify-start flex-col p-4 md:p-10">
           <div class="flex flex-col">
@@ -232,35 +229,35 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
               <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
                   <table class="min-w-full">
-                    <thead class="bg-white border-b">
+                    <thead class="bg-gray-800 border-b">
                       <tr>
                         <th
                           scope="col"
-                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                          class="text-md text-emerald-500 px-6 py-4 text-left font-semibold"
                         >
                           #
                         </th>
                         <th
                           scope="col"
-                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                          class="text-md text-emerald-500 px-6 py-4 text-left font-semibold"
                         >
                           Product Name
                         </th>
                         <th
                           scope="col"
-                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                          class="text-md text-emerald-500 px-6 py-4 text-left font-semibold"
                         >
                           Quantity
                         </th>
                         <th
                           scope="col"
-                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                          class="text-md text-emerald-500 px-6 py-4 text-left font-semibold"
                         >
                           Price
                         </th>
                         <th
                           scope="col"
-                          class="text-md text-indigo-900 px-6 py-4 text-left font-semibold"
+                          class="text-md text-emerald-500 px-6 py-4 text-left font-semibold"
                         >
                           Total
                         </th>
@@ -273,24 +270,24 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
                             key={k}
                             href={`${process.env.NEXT_PUBLIC_HOST}/product/${k}`}
                           >
-                            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            <tr class="bg-gray-800 transition duration-300 ease-in-out">
+                              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-200">
                                 {index + 1}
                               </td>
-                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap cursor-pointer">
+                              <td class="text-md text-gray-200 px-6 py-4 whitespace-nowrap cursor-pointer">
                                 {cart[k].name +
                                   " " +
                                   cart[k].size +
                                   " " +
                                   cart[k].variant}
                               </td>
-                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap">
+                              <td class="text-md text-gray-200 px-6 py-4 whitespace-nowrap">
                                 {cart[k].qty}
                               </td>
-                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap">
+                              <td class="text-md text-gray-200 px-6 py-4 whitespace-nowrap">
                                 {"₹" + cart[k].price}
                               </td>
-                              <td class="text-md text-gray-900 px-6 py-4 whitespace-nowrap">
+                              <td class="text-md text-gray-200 px-6 py-4 whitespace-nowrap">
                                 {"₹" + cart[k].price * cart[k].qty}
                               </td>
                             </tr>
@@ -304,12 +301,12 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
             </div>
           </div>
 
-          <div className="text-center text-2xl text-indigo-600 mt-10">
+          <div className="text-center text-2xl text-emerald-300 mt-10">
             Subtotal : ₹{subTotal}
           </div>
           <div className="m-auto mt-10">
             <button
-              className="bg-indigo-700 px-10 py-4 text-white font-semibold text-xl rounded-md"
+              className="bg-emerald-700 px-10 py-4 text-white font-semibold text-xl rounded-md"
               onClick={payNowHandler}
             >
               Pay Now!

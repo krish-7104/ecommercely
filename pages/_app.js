@@ -54,6 +54,7 @@ function MyApp({ Component, pageProps }) {
         body: JSON.stringify(body),
       });
       let response = await res.json();
+      response.length !== 0 && setSubTotal(response[0].subTotal);
       response.length !== 0 && setCart(response[0].products);
     }
   };
@@ -72,8 +73,10 @@ function MyApp({ Component, pageProps }) {
         newCart[itemCode] = { qty: 1, price, name, size, variant };
       }
     }
+    setSubTotal(subTotal + price);
     setCart(newCart);
-    saveCart(newCart);
+    saveCart(newCart, subTotal + price);
+    router.replace(router.asPath);
   };
 
   const logoutHandler = () => {
@@ -84,8 +87,7 @@ function MyApp({ Component, pageProps }) {
     setCart({});
   };
 
-  const saveCart = async (myCart) => {
-    console.log(myCart);
+  const saveCart = async (myCart, price, type) => {
     if (Object.keys(myCart).length === 0) {
       let body = { user: user.value.slice(0, 36) };
       let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/deletecart`, {
@@ -109,7 +111,11 @@ function MyApp({ Component, pageProps }) {
         });
       }
     } else {
-      let body = { user: user.value.slice(0, 36), products: myCart };
+      let body = {
+        user: user.value.slice(0, 36),
+        products: myCart,
+        subTotal: price,
+      };
       let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/savecart`, {
         method: "POST",
         headers: {
@@ -135,6 +141,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   const clearCart = () => {
+    setSubTotal(0);
     Object.keys(cart).forEach((item) => {
       updateQuantityCart(item, "remove", cart[item].qty);
     });
@@ -150,17 +157,20 @@ function MyApp({ Component, pageProps }) {
       progress: undefined,
       theme: "dark",
     });
+    router.asPath !== "/checkout" && router.push("/");
   };
 
   const buyNow = (itemCode, qty, price, name, size, variant) => {
+    setSubTotal(price);
     let newCart = { [itemCode]: { qty: 1, price, name, size, variant } };
     updateQuantityCart(itemCode, "add", qty);
     setCart(newCart);
-    saveCart(newCart);
+    saveCart(newCart, price);
     router.push("/checkout");
   };
 
-  const removeFromCart = (itemCode, qty) => {
+  const removeFromCart = (itemCode, qty, price) => {
+    setSubTotal(subTotal - price);
     router.replace(router.asPath);
     updateQuantityCart(itemCode, "remove", 1);
     let newCart = cart;
@@ -171,7 +181,8 @@ function MyApp({ Component, pageProps }) {
       delete newCart[itemCode];
     }
     setCart(newCart);
-    saveCart(newCart);
+    saveCart(newCart, subTotal - price);
+    router.replace(router.asPath);
   };
   return (
     <>

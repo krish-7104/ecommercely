@@ -4,6 +4,7 @@ const CartSchema = new mongoose.Schema(
   {
     user: { type: String, required: true },
     products: { type: Object, required: true },
+    subTotal: { type: Number, required: true },
   },
   { timestamps: true }
 );

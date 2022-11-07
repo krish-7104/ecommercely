@@ -13,7 +13,7 @@ const Cart = ({ cart, subTotal, clearCart, addToCart, removeFromCart }) => {
     <div className="bg-gray-900 min-h-[93vh]">
       <div className="container mx-auto">
         <h2 className="font-bold text-2xl py-6 text-center text-emerald-600">
-          Your Shopping Cart {Object.keys(cart).length}
+          Your Shopping Cart
         </h2>
         <div class="flex flex-col">
           <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
