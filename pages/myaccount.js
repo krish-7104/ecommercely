@@ -8,8 +8,10 @@ const MyAccount = () => {
     }
   }, [router]);
   return (
-    <div>
-      <p className="text-center text-2xl font-semibold my-6">My Account</p>
+    <div className="flex justify-center bg-gray-900">
+      <p className="text-center text-2xl font-semibold py-6 text-gray-200 h-[100vh] flex mt-10">
+        Under Constuction, Coming Soon ⚠️
+      </p>
     </div>
   );
 };

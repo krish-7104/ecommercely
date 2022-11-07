@@ -150,7 +150,6 @@ function MyApp({ Component, pageProps }) {
       progress: undefined,
       theme: "dark",
     });
-    router.replace(router.asPath);
   };
 
   const buyNow = (itemCode, qty, price, name, size, variant) => {
@@ -177,7 +176,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <LoadingBar
-        color="#6C58CE"
+        color="#00A881"
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
         waitingTime={400}

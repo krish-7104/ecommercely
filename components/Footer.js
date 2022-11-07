@@ -20,28 +20,28 @@ const Footer = () => {
               SHOP
             </h2>
             <nav className="list-none mb-10">
-              <Link href={"/tshirts"}>
+              <Link href={"/products?type=tshirts"}>
                 <li>
                   <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
                     T Shirts
                   </a>
                 </li>
               </Link>
-              <Link href={"/shirts"}>
+              <Link href={"/products?type=shirts"}>
                 <li>
                   <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
                     Shirts
                   </a>
                 </li>
               </Link>
-              <Link href={"/hoddies"}>
+              <Link href={"/products?type=hoddies"}>
                 <li>
                   <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
                     Hoddies
                   </a>
                 </li>
               </Link>
-              <Link href={"/jeans"}>
+              <Link href={"/products?type=jeans"}>
                 <li>
                   <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
                     Jeans

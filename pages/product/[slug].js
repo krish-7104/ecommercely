@@ -99,16 +99,16 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               <h1 className="text-gray-100 text-3xl title-font font-medium my-2">
                 {product.title}
               </h1>
-              <p className="leading-relaxed">{product.desc}</p>
-              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 justify-evenly">
+              <p className="leading-relaxed text-gray-400">{product.desc}</p>
+              <div className="flex mt-6 items-center pb-5mb-5 justify-center">
                 {variants && (
-                  <div className="flex ml-6 items-center">
+                  <div className="flex items-center">
                     <span className="mr-3 text-emerald-500 font-semibold">
                       Color
                     </span>
                     <div className="relative">
                       <select
-                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none text-base pl-3 pr-10"
+                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none pl-3 pr-10 text-sm"
                         onChange={colorChangeHandler}
                         defaultValue={selectedColor}
                       >
@@ -143,7 +143,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                     </span>
                     <div className="relative">
                       <select
-                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none text-base pl-3 pr-10"
+                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none pl-3 pr-10 text-sm"
                         onChange={sizeChangeHandler}
                         defaultValue={selectedSize}
                       >
@@ -172,40 +172,41 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                   </div>
                 )}
               </div>
-              <div className="flex">
+              <div className="justify-evenly mt-6 items-center flex bg-gray-800 p-2 mb-4 rounded-md">
                 {product.availableQty !== 0 ? (
-                  <span className="title-font font-medium text-3xl ml-4 text-gray-100">
+                  <span className="title-font font-medium text-3xl text-gray-200">
                     ₹{product.price}
                   </span>
                 ) : (
-                  <p className="text-red-400 font-semibold text-xl">
+                  <p className="text-red-500 font-semibold text-xl text-center">
                     Out of Stock
                   </p>
                 )}
-                <button
-                  disabled={product.availableQty === 0 ? true : false}
-                  className="flex ml-auto text-white bg-emerald-700 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400"
-                  onClick={buynowHandler}
-                >
-                  Buy Now
-                </button>
-                <button
-                  disabled={product.availableQty === 0 ? true : false}
-                  className="flex ml-5 text-white bg-emerald-700 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400"
-                  onClick={addtoCartHandler}
-                >
-                  Add To Cart
-                </button>
-              </div>
-              <div>
                 {product.availableQty <= 5 && product.availableQty > 0 ? (
-                  <p className="text-red-500 font-semibold text-xl mt-2">
+                  <p className="text-red-500 font-semibold text-xl">
                     Only {product.availableQty} Left
                   </p>
                 ) : (
                   ""
                 )}
               </div>
+              <div className="flex mt-6 align-middle justify-evenly">
+                <button
+                  disabled={product.availableQty === 0 ? true : false}
+                  className="flex justify-center text-white border-emerald-700 border-2 w-1/2 mr-3 py-2 px-6 focus:outline-none hover:bg-emerald-700 transition-colors rounded disabled:bg-emerald-400 disabled:text-gray-900"
+                  onClick={addtoCartHandler}
+                >
+                  Add To Cart
+                </button>
+                <button
+                  disabled={product.availableQty === 0 ? true : false}
+                  className="flex justify-center text-white bg-emerald-700 border-0 w-1/2 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400 disabled:text-gray-900"
+                  onClick={buynowHandler}
+                >
+                  Buy Now
+                </button>
+              </div>
+
               {/* <div className="pincode flex flex-col justify-start items-center mt-8 md:flex-row">
                 <input
                   type="number"

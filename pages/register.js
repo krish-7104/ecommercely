@@ -56,8 +56,8 @@ const Register = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center mx-auto md:h-screen">
-      <div className="w-full bg-indigo-100 rounded-lg shadow-xl md:mt-0 sm:max-w-md xl:p-0 light:bg-gray-800 light:border-gray-700">
+    <div className="flex flex-col items-center justify-center mx-auto md:h-screen bg-gray-900">
+      <div className="w-full bg-gray-100 rounded-lg shadow-xl md:mt-0 sm:max-w-md xl:p-0">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl light:text-white">
             Create A Account
@@ -123,7 +123,7 @@ const Register = () => {
             </div>
             <button
               type="submit"
-              className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center light:bg-primary-600 light:hover:bg-primary-700 light:focus:ring-primary-800"
+              className="w-full text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center light:bg-primary-600 light:hover:bg-primary-700 light:focus:ring-primary-800"
             >
               Create Account
             </button>
