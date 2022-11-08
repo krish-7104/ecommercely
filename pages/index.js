@@ -9,7 +9,11 @@ export default function Home() {
         <meta name="description" content="A E-Commerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className="text-gray-600 body-font bg-gray-900">
+      <section className="text-gray-600 body-font bg-gray-900 flex-col">
+        <p className="bg-gray-800 text-center p-2">
+          <span className="text-emerald-500">Note:</span> This is a learning
+          based project. The products shown here are only for visual purpose.
+        </p>
         <div className="container px-5 py-24 mx-auto">
           <div className="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row-reverse flex-col">
             <div className="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-emerald-100 text-emerald-500 flex-shrink-0">

@@ -1,6 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import {
+  AiFillGithub,
+  AiFillLinkedin,
+  AiFillInstagram,
+  AiFillMail,
+} from "react-icons/ai";
 const Footer = () => {
   return (
     <footer className="text-gray-600 body-font bg-gray-900">
@@ -21,31 +26,23 @@ const Footer = () => {
             </h2>
             <nav className="list-none mb-10">
               <Link href={"/products?type=tshirts"}>
-                <li>
-                  <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                    T Shirts
-                  </a>
+                <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                  T Shirts
                 </li>
               </Link>
               <Link href={"/products?type=shirts"}>
-                <li>
-                  <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                    Shirts
-                  </a>
+                <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                  Shirts
                 </li>
               </Link>
               <Link href={"/products?type=hoddies"}>
-                <li>
-                  <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                    Hoddies
-                  </a>
+                <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                  Hoddies
                 </li>
               </Link>
               <Link href={"/products?type=jeans"}>
-                <li>
-                  <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                    Jeans
-                  </a>
+                <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                  Jeans
                 </li>
               </Link>
             </nav>
@@ -55,25 +52,23 @@ const Footer = () => {
               ABOUT
             </h2>
             <nav className="list-none mb-10">
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"http://krishjotaniya.netlify.app/about"}>
                   About Us
-                </a>
+                </Link>
               </li>
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"https://krishjotaniya.netlify.app/contact"}>
                   Contact Us
-                </a>
+                </Link>
               </li>
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"https://krishjotaniya.netlify.app/"}>
                   Developer
-                </a>
+                </Link>
               </li>
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                  Mail Us
-                </a>
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"mailto:jotaniyakrish07@gmail.com"}>Mail Us</Link>
               </li>
             </nav>
           </div>
@@ -82,25 +77,17 @@ const Footer = () => {
               POLICY
             </h2>
             <nav className="list-none mb-10">
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                  Payment
-                </a>
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"/"}>Payment</Link>
               </li>
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                  Shipping
-                </a>
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"/"}>Shipping</Link>
               </li>
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                  Cancellation & Returns
-                </a>
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"/"}>Cancellation & Returns</Link>
               </li>
-              <li>
-                <a className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
-                  Privacy
-                </a>
+              <li className="text-gray-600 hover:text-emerald-300 text-sm cursor-pointer">
+                <Link href={"/"}>Privacy</Link>
               </li>
             </nav>
           </div>
@@ -109,72 +96,51 @@ const Footer = () => {
       <div className="bg-gray-800">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-sm text-center sm:text-left text-emerald-500">
-            © 2022 ECommercely - By
-            <a
+            © 2022 ECommercely - By{" "}
+            <Link
               href="https://krishjotaniya.netlify.app/"
               rel="noopener noreferrer"
               className="text-emerald-600 ml-1"
               target="_blank"
             >
               Krish Jotaniya
-            </a>
+            </Link>
           </p>
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
-            <a className="text-emerald-300">
-              <svg
-                fill="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
+            <Link href={"https://github.com/krish-7104/"}>
+              <li
+                href={"/about"}
+                className="text-emerald-300 hover:text-emerald-500 list-none cursor-pointer"
               >
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-              </svg>
-            </a>
-            <a className="ml-3 text-emerald-300">
-              <svg
-                fill="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
+                <AiFillGithub />
+              </li>
+            </Link>
+            <Link
+              href={"https://www.linkedin.com/in/krish-jotaniya-224022214/"}
+            >
+              <li
+                href={"/about"}
+                className="ml-3 text-emerald-300 hover:text-emerald-500 list-none cursor-pointer"
               >
-                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-              </svg>
-            </a>
-            <a className="ml-3 text-emerald-300">
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
+                <AiFillLinkedin />
+              </li>
+            </Link>
+            <Link href={"https://www.instagram.com/krish7104_"}>
+              <li
+                href={"/about"}
+                className="ml-3 text-emerald-300 hover:text-emerald-500 list-none cursor-pointer"
               >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-              </svg>
-            </a>
-            <a className="ml-3 text-emerald-300">
-              <svg
-                fill="currentColor"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="0"
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
+                <AiFillInstagram />
+              </li>
+            </Link>
+            <Link href={"mailto:jotaniyakrish07@gmail.com"}>
+              <li
+                href={"/about"}
+                className="ml-3 text-emerald-300 hover:text-emerald-500 list-none cursor-pointer"
               >
-                <path
-                  stroke="none"
-                  d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-                ></path>
-                <circle cx="4" cy="4" r="2" stroke="none"></circle>
-              </svg>
-            </a>
+                <AiFillMail />
+              </li>
+            </Link>
           </span>
         </div>
       </div>

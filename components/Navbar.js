@@ -11,38 +11,30 @@ const Navbar = ({ user, cart, logoutHandler }) => {
     <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 z-10 bg-gray-900">
       <div className="logo ml-5 mr-auto md:mr-5 md:mt-0 mt-2">
         <Link href={"/"}>
-          <a>
-            <p className="text-emerald-500 text-xl font-bold">ECommercely</p>
-          </a>
+          <p className="text-emerald-500 text-xl font-bold">ECommercely</p>
         </Link>
       </div>
       <div className="nav py-4">
         <ul className="flex space-x-6 font-semibold">
           <Link href={"/products?type=tshirts"}>
-            <a>
-              <li className="text-emerald-600 hover:text-emerald-400">
-                T-Shirts
-              </li>
-            </a>
+            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+              T-Shirts
+            </li>
           </Link>
           <Link href={"/products?type=shirts"}>
-            <a>
-              <li className="text-emerald-600 hover:text-emerald-400">
-                Shirts
-              </li>
-            </a>
+            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+              Shirts
+            </li>
           </Link>
           <Link href={"/products?type=hoddies"}>
-            <a>
-              <li className="text-emerald-600 hover:text-emerald-400">
-                Hoddies
-              </li>
-            </a>
+            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+              Hoddies
+            </li>
           </Link>
           <Link href={"/products?type=jeans"}>
-            <a>
-              <li className="text-emerald-600 hover:text-emerald-400">Jeans</li>
-            </a>
+            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+              Jeans
+            </li>
           </Link>
         </ul>
       </div>
