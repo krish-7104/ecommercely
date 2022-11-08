@@ -20,27 +20,25 @@ const MyOrder = ({ order }) => {
               your place.
             </p>
             <div className="flex mb-4">
-              <a className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-left font-bold text-emerald-600">
+              <li className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-left font-bold text-emerald-600">
                 Products
-              </a>
-              <a className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right font-bold text-emerald-600">
+              </li>
+              <li className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right font-bold text-emerald-600">
                 Total
-              </a>
+              </li>
             </div>
             {Object.keys(order.products).map((k) => {
               return (
                 <div className="flex border-b border-gray-100 py-2" key={k}>
                   <Link href={`/product/${k}`}>
-                    <a>
-                      <p className="text-gray-100 text-left">
-                        {order.products[k].name +
-                          " (" +
-                          order.products[k].size +
-                          "/" +
-                          order.products[k].variant +
-                          ")"}
-                      </p>
-                    </a>
+                    <p className="text-gray-100 text-left">
+                      {order.products[k].name +
+                        " (" +
+                        order.products[k].size +
+                        "/" +
+                        order.products[k].variant +
+                        ")"}
+                    </p>
                   </Link>
                   <div className="ml-auto text-gray-200 w-[30%] text-right flex-row">
                     <p className="text-sm">

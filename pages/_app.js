@@ -140,23 +140,24 @@ function MyApp({ Component, pageProps }) {
     setKey(Math.random());
   };
 
-  const clearCart = () => {
+  const clearCart = (type) => {
     setSubTotal(0);
     Object.keys(cart).forEach((item) => {
       updateQuantityCart(item, "remove", cart[item].qty);
     });
     setCart({});
     saveCart({});
-    toast("Cart Cleared Successfully!", {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    type !== "checkout" &&
+      toast("Cart Cleared Successfully!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     router.asPath !== "/checkout" && router.push("/");
   };
 

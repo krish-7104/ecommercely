@@ -47,7 +47,17 @@ const Checkout = ({ cart, subTotal, clearCart }) => {
         });
         let response = await res.json();
         router.push(`/order/?id=${response.orderId}`);
-        clearCart();
+        clearCart("checkout");
+        toast("Order Placed Successfully!", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
         // } else {
         //   toast.error("Pincode Is Not Serviceable!", {
         //     position: "bottom-right",

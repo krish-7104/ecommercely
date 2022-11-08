@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Order from "../models/Order";
 import mongoose from "mongoose";
 import Link from "next/link";
+import moment from "moment";
 const Orders = ({ allOrders }) => {
   const router = useRouter();
   useEffect(() => {
@@ -71,7 +72,10 @@ const Orders = ({ allOrders }) => {
                   </div>
                 );
               })}
-              <div className="flex justify-end">
+              <div className="flex justify-between">
+                <p className="text-gray-500 text-bold mt-4 text-md md:text-md inline-block px-2 py-1 rounded-sm mr-2 mb-2">
+                  {moment(order.createdAt).utc().format("DD/MM/YY hh:mm:ss")}
+                </p>
                 <p className="text-gray-200 text-bold mt-4 text-md md:text-lg bg-emerald-700 inline-block px-2 py-1 rounded-sm mr-2 mb-2">
                   Subtotal ₹{order.amount}
                 </p>
