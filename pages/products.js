@@ -56,13 +56,15 @@ const Products = ({ products }) => {
                       />
                     </a>
                     <div className="mt-4">
-                      <h3 className="text-emerald-700 text-xs tracking-widest title-font mb-1 font-bold">
+                      <h3 className="font-Montserrat text-emerald-700 text-xs tracking-widest title-font mb-1 font-bold">
                         {type.toUpperCase()}
                       </h3>
-                      <h2 className="text-gray-900 title-font font-medium text-lg">
+                      <h2 className="font-Montserrat text-gray-900 title-font font-medium text-lg">
                         {products[item].title}
                       </h2>
-                      <p className="mt-1">₹{products[item].price}</p>
+                      <p className="mt-1 font-Montserrat">
+                        ₹{products[item].price}
+                      </p>
                     </div>
                   </motion.div>
                 </Link>

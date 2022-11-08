@@ -11,28 +11,30 @@ const Navbar = ({ user, cart, logoutHandler }) => {
     <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-md sticky top-0 z-10 bg-gray-900">
       <div className="logo ml-5 mr-auto md:mr-5 md:mt-0 mt-2">
         <Link href={"/"}>
-          <p className="text-emerald-500 text-xl font-bold">ECommercely</p>
+          <p className="font-Montserrat text-emerald-500 text-xl font-bold cursor-pointer">
+            ECommercely
+          </p>
         </Link>
       </div>
       <div className="nav py-4">
         <ul className="flex space-x-6 font-semibold">
           <Link href={"/products?type=tshirts"}>
-            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+            <li className="font-Montserrat text-emerald-600 hover:text-emerald-400 cursor-pointer">
               T-Shirts
             </li>
           </Link>
           <Link href={"/products?type=shirts"}>
-            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+            <li className="font-Montserrat text-emerald-600 hover:text-emerald-400 cursor-pointer">
               Shirts
             </li>
           </Link>
           <Link href={"/products?type=hoddies"}>
-            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+            <li className="font-Montserrat text-emerald-600 hover:text-emerald-400 cursor-pointer">
               Hoddies
             </li>
           </Link>
           <Link href={"/products?type=jeans"}>
-            <li className="text-emerald-600 hover:text-emerald-400 cursor-pointer">
+            <li className="font-Montserrat text-emerald-600 hover:text-emerald-400 cursor-pointer">
               Jeans
             </li>
           </Link>
@@ -54,12 +56,12 @@ const Navbar = ({ user, cart, logoutHandler }) => {
           >
             <ul>
               <Link href={"/myaccount"}>
-                <li className="text-sm font-semibold py-1 text-gray-600 hover:text-black">
+                <li className="font-Montserrat text-sm font-semibold py-1 text-gray-600 hover:text-black">
                   My Account
                 </li>
               </Link>
               <Link href={"/orders"}>
-                <li className="text-sm font-semibold py-1 text-gray-600 hover:text-black">
+                <li className="font-Montserrat text-sm font-semibold py-1 text-gray-600 hover:text-black">
                   Orders
                 </li>
               </Link>

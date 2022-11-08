@@ -93,22 +93,22 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               src={product.img}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 className="text-sm title-font text-emerald-500 tracking-widest font-bold">
+              <h2 className="font-Montserrat text-sm title-font text-emerald-500 tracking-widest font-bold">
                 {product.category.toUpperCase()}
               </h2>
-              <h1 className="text-gray-100 text-3xl title-font font-medium my-2">
+              <h1 className="font-Montserrat text-gray-100 text-2xl title-font font-medium my-2">
                 {product.title}
               </h1>
               <p className="leading-relaxed text-gray-400">{product.desc}</p>
               <div className="flex mt-6 items-center pb-5mb-5 justify-center">
                 {variants && (
                   <div className="flex items-center">
-                    <span className="mr-3 text-emerald-500 font-semibold">
+                    <span className="mr-3 font-Montserrat text-emerald-500 font-semibold">
                       Color
                     </span>
                     <div className="relative">
                       <select
-                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none pl-3 pr-10 text-sm"
+                        className="rounded font-Montserrat appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none pl-3 pr-10 text-sm"
                         onChange={colorChangeHandler}
                         defaultValue={selectedColor}
                       >
@@ -120,7 +120,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                           );
                         })}
                       </select>
-                      <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                      <span className="font-Montserrat absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                         <svg
                           fill="none"
                           stroke="currentColor"
@@ -138,12 +138,12 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                 )}
                 {product.size && (
                   <div className="flex ml-6 items-center">
-                    <span className="mr-3 text-emerald-500 font-semibold">
+                    <span className="font-Montserrat mr-3 text-emerald-500 font-semibold">
                       Size
                     </span>
                     <div className="relative">
                       <select
-                        className="rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none pl-3 pr-10 text-sm"
+                        className="font-Montserrat rounded appearance-none bg-gray-800 text-gray-100 py-1 focus:outline-none pl-3 pr-10 text-sm"
                         onChange={sizeChangeHandler}
                         defaultValue={selectedSize}
                       >
@@ -174,16 +174,16 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               </div>
               <div className="justify-evenly mt-6 items-center flex bg-gray-800 p-2 mb-4 rounded-md">
                 {product.availableQty !== 0 ? (
-                  <span className="title-font font-medium text-3xl text-gray-200">
+                  <span className="font-Montserrat title-font font-medium text-3xl text-gray-200">
                     ₹{product.price}
                   </span>
                 ) : (
-                  <p className="text-red-500 font-semibold text-xl text-center">
+                  <p className="font-Montserrat text-red-500 font-semibold text-xl text-center">
                     Out of Stock
                   </p>
                 )}
                 {product.availableQty <= 5 && product.availableQty > 0 ? (
-                  <p className="text-red-500 font-semibold text-xl">
+                  <p className="font-Montserrat text-red-500 font-semibold text-xl">
                     Only {product.availableQty} Left
                   </p>
                 ) : (
@@ -193,14 +193,14 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               <div className="flex mt-6 align-middle justify-evenly">
                 <button
                   disabled={product.availableQty === 0 ? true : false}
-                  className="flex justify-center text-white border-emerald-700 border-2 w-1/2 mr-3 py-2 px-6 focus:outline-none hover:bg-emerald-700 transition-colors rounded disabled:bg-emerald-400 disabled:text-gray-900"
+                  className="font-Montserrat flex justify-center text-white border-emerald-700 border-2 w-1/2 mr-3 py-2 px-6 focus:outline-none hover:bg-emerald-700 transition-colors rounded disabled:bg-emerald-400 disabled:text-gray-900"
                   onClick={addtoCartHandler}
                 >
                   Add To Cart
                 </button>
                 <button
                   disabled={product.availableQty === 0 ? true : false}
-                  className="flex justify-center text-white bg-emerald-700 border-0 w-1/2 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400 disabled:text-gray-900"
+                  className="font-Montserrat flex justify-center text-gray-900 font-semibold bg-emerald-700 border-0 w-1/2 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400 disabled:text-gray-900"
                   onClick={buynowHandler}
                 >
                   Buy Now

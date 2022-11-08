@@ -13,7 +13,7 @@ const Orders = ({ allOrders }) => {
   }, [router]);
   return (
     <div className="bg-gray-900 pb-10">
-      <p className="text-center font-semibold text-2xl py-6 text-emerald-500">
+      <p className="font-Montserrat text-center font-semibold text-2xl py-6 text-emerald-500">
         My Orders
       </p>
       {JSON.parse(allOrders).map((order) => {
@@ -24,11 +24,11 @@ const Orders = ({ allOrders }) => {
           >
             <div className="flex justify-between mb-4">
               <p className="text-gray-500">
-                <span className="text-emerald-500">Id: </span>
+                <span className="font-Montserrat text-emerald-500">Id: </span>
                 {order.orderId}
               </p>
               <p className="bg-gray-900 mr-2 px-2 py-1 text-sm text-emerald-600 rounded-md flex justify-center items-center">
-                <span className="mr-1">{order.status}</span>
+                <span className="mr-1 font-Montserrat">{order.status}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -50,8 +50,8 @@ const Orders = ({ allOrders }) => {
                 return (
                   <div key={product} className="flex w-full my-2">
                     <Link href={`order?id=${order._id}`}>
-                      <p className="text-gray-100 text-md w-3/4 md:text-lg cursor-pointer">
-                        <span className="text-emerald-500">
+                      <p className=" font-Montserrat text-gray-100 text-xs w-3/4 md:text-base cursor-pointer">
+                        <span className="font-Montserrat text-emerald-500">
                           {index + 1 + ". "}
                         </span>{" "}
                         {order.products[product].name}
@@ -62,7 +62,7 @@ const Orders = ({ allOrders }) => {
                         {")"}
                       </p>
                     </Link>
-                    <p className="text-gray-100 text-md w-1/4 text-center md:text-lg">
+                    <p className="font-Montserrat text-gray-100 text-md w-1/4 text-center md:text-lg">
                       {order.products[product].qty} x
                       <span className="text-emerald-500">
                         {" "}
@@ -73,10 +73,10 @@ const Orders = ({ allOrders }) => {
                 );
               })}
               <div className="flex justify-between">
-                <p className="text-gray-500 text-bold mt-4 text-md md:text-md inline-block px-2 py-1 rounded-sm mr-2 mb-2">
+                <p className="font-Montserrat text-gray-500 text-bold mt-4 text-md md:text-md inline-block px-2 py-1 rounded-md mr-2 mb-2 tracking-normal">
                   {moment(order.createdAt).utc().format("DD/MM/YY hh:mm:ss")}
                 </p>
-                <p className="text-gray-200 text-bold mt-4 text-md md:text-lg bg-emerald-700 inline-block px-2 py-1 rounded-sm mr-2 mb-2">
+                <p className="font-Montserrat text-gray-900 font-semibold mt-4 text-md md:text-base bg-emerald-700 inline-block px-2 py-1 rounded-sm mr-2 mb-2">
                   Subtotal ₹{order.amount}
                 </p>
               </div>
