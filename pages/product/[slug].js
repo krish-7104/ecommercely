@@ -193,14 +193,14 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
               <div className="flex mt-6 align-middle justify-evenly">
                 <button
                   disabled={product.availableQty === 0 ? true : false}
-                  className="font-Montserrat flex justify-center text-white border-emerald-700 border-2 w-1/2 mr-3 py-2 px-6 focus:outline-none hover:bg-emerald-700 transition-colors rounded disabled:bg-emerald-400 disabled:text-gray-900"
+                  className="font-Montserrat flex justify-center text-gray-100 border-emerald-700 border-2 w-1/2 mr-3 py-2 px-6 focus:outline-none hover:bg-emerald-700 transition-colors rounded disabled:bg-emerald-400 disabled:text-gray-900"
                   onClick={addtoCartHandler}
                 >
                   Add To Cart
                 </button>
                 <button
                   disabled={product.availableQty === 0 ? true : false}
-                  className="font-Montserrat flex justify-center text-gray-900 font-semibold bg-emerald-700 border-0 w-1/2 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400 disabled:text-gray-900"
+                  className="font-Montserrat flex justify-center text-gray-900 font-semibold bg-emerald-600 border-0 w-1/2 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded disabled:bg-emerald-400 disabled:text-gray-900"
                   onClick={buynowHandler}
                 >
                   Buy Now
