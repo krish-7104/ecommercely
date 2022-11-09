@@ -29,7 +29,7 @@ export default function Home() {
                 Tshirts At The Most Affordable Price
               </p>
               <Link href="/products?type=tshirts">
-                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer hover:text-emerald-300">
+                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer justify-center hover:text-emerald-300">
                   <p className="mr-2 font-Montserrat">Shop Now</p>
                   <span className="mt-1">
                     <svg
@@ -64,7 +64,7 @@ export default function Home() {
                 Most Affordable Price
               </p>
               <Link href="/products?type=hoddies">
-                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer hover:text-emerald-300">
+                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer justify-center hover:text-emerald-300">
                   <p className="mr-2 font-Montserrat">Shop Now</p>
                   <span className="mt-1">
                     <svg
@@ -99,7 +99,7 @@ export default function Home() {
                 Price. Shirts That Makes You Feel Better.
               </p>
               <Link href="/products?type=shirts">
-                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer hover:text-emerald-300">
+                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer justify-center hover:text-emerald-300">
                   <p className="mr-2 font-Montserrat">Shop Now</p>
                   <span className="mt-1">
                     <svg
@@ -134,7 +134,7 @@ export default function Home() {
                 Price
               </p>
               <Link href="/products?type=jeans">
-                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer hover:text-emerald-300">
+                <a className="mt-3 text-emerald-500 flex items-center cursor-pointer justify-center hover:text-emerald-300">
                   <p className="mr-2 font-Montserrat">Shop Now</p>
                   <span className="mt-1">
                     <svg
