@@ -6,7 +6,7 @@ import "../styles/globals.css";
 import LoadingBar from "react-top-loading-bar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Analytics } from "@vercel/analytics/react";
 function MyApp({ Component, pageProps }) {
   const [progress, setProgress] = useState(0);
   const [cart, setCart] = useState({});
@@ -217,6 +217,7 @@ function MyApp({ Component, pageProps }) {
         getCart={getCart}
         {...pageProps}
       />
+      <Analytics />
       <ToastContainer />
       <Footer />
     </>
