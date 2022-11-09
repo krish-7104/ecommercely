@@ -6,7 +6,10 @@ export default function Home() {
     <div>
       <Head>
         <title>Ecommercely - Shop Wisely</title>
-        <meta name="description" content="A E-Commerce Website" />
+        <meta
+          name="description"
+          content="A E-Commerce Website, Always Shop Wisely"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section className="text-gray-600 body-font bg-gray-900 flex-col">
