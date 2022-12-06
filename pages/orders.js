@@ -12,7 +12,7 @@ const Orders = ({ allOrders }) => {
     }
   }, [router]);
   return (
-    <div className="bg-gray-900 pb-10">
+    <div className="bg-gray-900 pb-10 min-h-[94vh]">
       <p className="font-Montserrat text-center font-semibold text-2xl py-6 text-emerald-500">
         THIS PAGE IS UNDER MAINTENANCE CHECK BACK LATER
       </p>
@@ -91,13 +91,13 @@ const Orders = ({ allOrders }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  if (!mongoose.connections[0].readyState) {
-    mongoose.connect(process.env.MONGO_URI);
-  }
-  let orders = await Order.find({});
-  return {
-    props: { allOrders: JSON.stringify(orders) },
-  };
-}
+// export async function getServerSideProps(context) {
+//   // if (!mongoose.connections[0].readyState) {
+//   //   mongoose.connect(process.env.MONGO_URI);
+//   // }
+//   // let orders = await Order.find({});
+//   // return {
+//   //   props: { allOrders: JSON.stringify(orders) },
+//   // };
+// }
 export default Orders;
