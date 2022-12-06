@@ -4,6 +4,7 @@ import Order from "../models/Order";
 import mongoose from "mongoose";
 import Link from "next/link";
 import moment from "moment";
+var jwt = require("jsonwebtoken");
 const Orders = ({ allOrders }) => {
   const router = useRouter();
   useEffect(() => {
@@ -23,10 +24,13 @@ const Orders = ({ allOrders }) => {
             className="bg-gray-800 mt-4 p-4 rounded-lg md:w-[70%] w-[90%] mx-auto"
           >
             <div className="flex justify-between mb-4">
-              <p className="text-gray-500">
+              <a
+                className="text-gray-500"
+                href={`${process.env.NEXT_PUBLIC_HOST}/order?id=${order._id}`}
+              >
                 <span className="font-Montserrat text-emerald-500">Id: </span>
                 {order.orderId}
-              </p>
+              </a>
               <p className="bg-gray-900 mr-2 px-2 py-1 text-sm text-emerald-600 rounded-md flex justify-center items-center">
                 <span className="mr-1 font-Montserrat">{order.status}</span>
                 <svg
@@ -89,10 +93,13 @@ const Orders = ({ allOrders }) => {
 };
 
 export async function getServerSideProps(context) {
+  let key = process.env.SECRET_JWT;
+  let token = localStorage.getItem("token");
+  let email = jwt.verify(token, key);
   if (!mongoose.connections[0].readyState) {
     mongoose.connect(process.env.MONGO_URI);
   }
-  let orders = await Order.find({});
+  let orders = await Order.find({ email: email.email });
   return {
     props: { allOrders: JSON.stringify(orders) },
   };
