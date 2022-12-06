@@ -14,19 +14,22 @@ const Orders = ({ allOrders }) => {
   return (
     <div className="bg-gray-900 pb-10">
       <p className="font-Montserrat text-center font-semibold text-2xl py-6 text-emerald-500">
-        My Orders
+        THIS PAGE IS UNDER MAINTENANCE CHECK BACK LATER
       </p>
-      {JSON.parse(allOrders).map((order) => {
+      {/* {JSON.parse(allOrders).map((order) => {
         return (
           <div
             key={order._id}
             className="bg-gray-800 mt-4 p-4 rounded-lg md:w-[70%] w-[90%] mx-auto"
           >
             <div className="flex justify-between mb-4">
-              <p className="text-gray-500">
+              <a
+                className="text-gray-500"
+                href={`${process.env.NEXT_PUBLIC_HOST}/orders`}
+              >
                 <span className="font-Montserrat text-emerald-500">Id: </span>
                 {order.orderId}
-              </p>
+              </a>
               <p className="bg-gray-900 mr-2 px-2 py-1 text-sm text-emerald-600 rounded-md flex justify-center items-center">
                 <span className="mr-1 font-Montserrat">{order.status}</span>
                 <svg
@@ -83,7 +86,7 @@ const Orders = ({ allOrders }) => {
             </ul>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 };
